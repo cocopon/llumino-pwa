@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import App from './app';
+import AppWrapper from './app-wrapper';
 
 (() => {
 	const containerElem = document.getElementById('appContainer');
@@ -11,7 +11,7 @@ import App from './app';
 		return;
 	}
 	ReactDom.render(
-		React.createElement(App),
+		React.createElement(AppWrapper),
 		containerElem,
 	);
 })();
