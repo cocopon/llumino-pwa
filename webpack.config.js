@@ -9,10 +9,8 @@ module.exports = (opt_env) => {
 	return [{
 		mode: 'development',
 		devServer: {
-			contentBase: Path.resolve(__dirname, 'public'),
-			stats: {
-				children: false,
-			},
+			contentBase: Path.join(__dirname, 'public'),
+			publicPath: '/assets/',
 		},
 		entry: {
 			bundle: Path.resolve(__dirname, 'src/js/bundle.js'),
