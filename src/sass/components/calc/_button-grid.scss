@@ -1,0 +1,15 @@
+$prefix: 'calc';
+
+.#{$prefix}-buttonGrid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	&_button {
+		background-color: gray;
+		color: white;
+		flex-basis: 24%;
+		padding: 8px;
+		margin-top: 2%;
+	}
+}

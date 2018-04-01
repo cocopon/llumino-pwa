@@ -1,31 +1,7 @@
 // @flow
 
-type NumberButtonId = '0' |
-	'1' |
-	'2' |
-	'3' |
-	'4' |
-	'5' |
-	'6' |
-	'7' |
-	'8' |
-	'9';
-
-type OperatorButtonId = '+' |
-	'-' |
-	'*' |
-	'/';
-
-export type ButtonId = NumberButtonId |
-	OperatorButtonId |
-	'c' |
-	'.' |
-	'=';
-
-export type ButtonType = 'digit' |
-	'operator' |
-	'clear' |
-	'equal';
+import type {ButtonId, OperatorButtonId} from './button-id';
+import type {ButtonType} from './button-type';
 
 const ButtonIdUtil = {
 	isDigit(buttonId: ButtonId): boolean {

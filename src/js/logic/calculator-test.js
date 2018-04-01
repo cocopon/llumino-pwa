@@ -5,7 +5,7 @@ import Assert from 'power-assert';
 
 import Calculator from './calculator';
 
-import type {ButtonId} from './calculator';
+import type {ButtonId} from './button-id';
 
 function pushButtons(calc: Calculator, buttonIds: ButtonId[]) {
 	buttonIds.forEach((buttonId) => {
