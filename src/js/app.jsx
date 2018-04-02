@@ -5,6 +5,7 @@ import * as ReactRedux from 'react-redux';
 import * as Redux from 'redux';
 
 import * as CalcActionCreators from './action-creators/calc-action-creators';
+import NumberFormatter from './misc/number-formatter';
 import ButtonGrid from './view/button-grid';
 
 import type {CalcAction} from './actions/calc-actions';
@@ -29,7 +30,7 @@ class App extends React.Component<Props> {
 		return (
 			<div>
 				<div>
-					{pageState.calculator.displayNumber}
+					{NumberFormatter.format(pageState.calculator.displayNumber)}
 				</div>
 				<ButtonGrid
 					onButtonClick={this.onGridButtonClick_}
