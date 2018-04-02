@@ -7,10 +7,13 @@ import * as Redux from 'redux';
 import * as CalcActionCreators from './action-creators/calc-action-creators';
 import ButtonGrid from './view/button-grid';
 
+import type {CalcAction} from './actions/calc-actions';
 import type {ButtonId} from './logic/button-id';
+import type {CalcState} from './reducer/calc-reducer';
 import type {RootState} from './reducer/root-reducer';
 
 type Props = {
+	pageState: CalcState,
 	onGridButtonClick: (buttonId: ButtonId) => void,
 };
 
@@ -22,10 +25,19 @@ class App extends React.Component<Props> {
 	}
 
 	render() {
+		const pageState = this.props.pageState;
 		return (
-			<ButtonGrid
-				onButtonClick={this.onGridButtonClick_}
-			/>
+			<div>
+				<div>
+					{pageState.calculator.answer_}
+				</div>
+				<div>
+					{pageState.calculator.inputBuffers_.join(',')}
+				</div>
+				<ButtonGrid
+					onButtonClick={this.onGridButtonClick_}
+				/>
+			</div>
 		);
 	}
 
@@ -34,17 +46,19 @@ class App extends React.Component<Props> {
 	}
 }
 
-function mapStateToProps(state: RootState): $Shape<Props> {
-	return {};
+function mapStateToProps(state: RootState) {
+	return {
+		pageState: state.calc,
+	};
 }
 
-function mapDispatchToProps(dispatch: Redux.Dispatch<*>): $Shape<Props> {
+function mapDispatchToProps(dispatch: Redux.Dispatch<CalcAction>) {
 	return {
-		onGridButtonClick(buttonId: ButtonId) {
+		onGridButtonClick(buttonId: ButtonId): void {
 			dispatch(
 				CalcActionCreators.pushButton(buttonId)
 			);
-		}
+		},
 	};
 }
 

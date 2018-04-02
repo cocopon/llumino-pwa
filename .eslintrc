@@ -1,0 +1,50 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true
+	},
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"rules": {
+		"camelcase": "off",
+		"comma-spacing": ["warn", {"before": false, "after": true}],
+		"dot-notation": "off",
+		"eqeqeq": "error",
+		"flowtype/define-flow-type": 1,
+		"flowtype/use-flow-type": 1,
+		"keyword-spacing": ["warn", {"before": true, "after": true}],
+		"no-console": ["error", {"allow": ["warn", "error"]}],
+		"no-multi-spaces": "off",
+		"no-undef": "error",
+		"no-underscore-dangle": "off",
+		"no-unused-vars": [
+			"warn", {
+				"args": "all",
+				"argsIgnorePattern": "^_"
+			}
+		],
+		"no-use-before-define": "error",
+		"object-curly-spacing": ["warn", "never"],
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
+		"semi-spacing": "off",
+		"space-before-blocks": ["warn", "always"],
+		"space-in-parens": ["warn", "never"],
+		"strict": "off",
+		"quotes": ["warn", "single"]
+	},
+	"globals": {
+		"paypal": false
+	},
+	"plugins": [
+		"flowtype",
+		"json",
+		"react"
+	]
+}
