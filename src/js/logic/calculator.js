@@ -1,35 +1,9 @@
 // @flow
 
+import ButtonIdUtil from './button-id';
+
 import type {ButtonId, OperatorButtonId} from './button-id';
 import type {ButtonType} from './button-type';
-
-const ButtonIdUtil = {
-	isDigit(buttonId: ButtonId): boolean {
-		return !isNaN(parseInt(buttonId, 10)) ||
-			buttonId === '.';
-	},
-	isOperator(buttonId: ButtonId): boolean {
-		return buttonId === '+' ||
-			buttonId === '-' ||
-			buttonId === '*' ||
-			buttonId === '/';
-	},
-	getType(buttonId: ButtonId): ?ButtonType {
-		if (ButtonIdUtil.isDigit(buttonId)) {
-			return 'digit';
-		}
-		if (ButtonIdUtil.isOperator(buttonId)) {
-			return 'operator';
-		}
-		if (buttonId === 'c') {
-			return 'clear';
-		}
-		if (buttonId === '=') {
-			return 'equal';
-		}
-		return null;
-	},
-};
 
 function createNumberFromButtonIds(buttonIds: ButtonId[]): number {
 	const text = buttonIds.reduce((text, buttonId) => {
@@ -55,6 +29,10 @@ class State {
 }
 
 class ShowingAnswerState extends State {
+	get displayNumber(): number {
+		return this.calc_.answer_;
+	}
+
 	pushButton(buttonId: ButtonId): State {
 		const buttonType = ButtonIdUtil.getType(buttonId);
 		if (buttonType === 'digit') {
@@ -78,17 +56,28 @@ class ShowingAnswerState extends State {
 }
 
 class InputtingDigitsState extends State {
+	get displayNumber(): number {
+		return ButtonIdUtil.buildNumber(this.calc_.inputBuffers_);
+	}
+
 	pushButton(buttonId: ButtonId): State {
 		const buttonType = ButtonIdUtil.getType(buttonId);
+
 		if (buttonType === 'digit') {
-			this.calc_.inputBuffers_.push(buttonId);
+			if (buttonId !== '.' ||
+				// Avoid duplicated dots (e.g. 3.14.16)
+				this.calc_.inputBuffers_.indexOf('.') < 0) {
+				this.calc_.inputBuffers_.push(buttonId);
+			}
 			return this;
 		}
+
 		if (buttonType === 'operator') {
 			this.calc_.operate_();
 			const nextState = new InputtingOperatorState(this.calc_);
 			return nextState.pushButton(buttonId);
 		}
+
 		if (buttonType === 'clear') {
 			if (this.calc_.inputBuffers_.length === 0) {
 				this.calc_.operatorBuffer_ = null;
@@ -98,15 +87,21 @@ class InputtingDigitsState extends State {
 			this.calc_.inputBuffers_.splice(0);
 			return this;
 		}
+
 		if (buttonType === 'equal') {
 			this.calc_.operate_();
 			return new ShowingAnswerState(this.calc_);
 		}
+
 		throw new Error('not implemented');
 	}
 }
 
 class InputtingOperatorState extends State {
+	get displayNumber(): number {
+		return this.calc_.answer_;
+	}
+
 	pushButton(buttonId: ButtonId): State {
 		const buttonType = ButtonIdUtil.getType(buttonId);
 		if (buttonType === 'digit') {
@@ -129,6 +124,10 @@ export default class Calculator {
 
 	get answer(): number {
 		return this.answer_;
+	}
+
+	get displayNumber(): number {
+		return this.state_.displayNumber;
 	}
 
 	pushButton(buttonId: ButtonId) {

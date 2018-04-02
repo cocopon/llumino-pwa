@@ -29,10 +29,7 @@ class App extends React.Component<Props> {
 		return (
 			<div>
 				<div>
-					{pageState.calculator.answer_}
-				</div>
-				<div>
-					{pageState.calculator.inputBuffers_.join(',')}
+					{pageState.calculator.displayNumber}
 				</div>
 				<ButtonGrid
 					onButtonClick={this.onGridButtonClick_}

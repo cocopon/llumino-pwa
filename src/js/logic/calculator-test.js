@@ -31,6 +31,15 @@ describe('Calculator', () => {
 		);
 	});
 
+	it('should clear inputting digits', () => {
+		const calc = new Calculator();
+		pushButtons(calc, ['3', '1', '4', 'c']);
+		Assert.strictEqual(
+			calc.answer,
+			0,
+		);
+	});
+
 	it('should clear answer', () => {
 		const calc = new Calculator();
 		pushButtons(calc, ['3', '1', '4', '=', 'c']);
@@ -58,6 +67,15 @@ describe('Calculator', () => {
 		Assert.strictEqual(
 			calc.answer,
 			2.72,
+		);
+	});
+
+	it('should not input duplicated dots', () => {
+		const calc = new Calculator();
+		pushButtons(calc, ['1', '.', '9', '.', '8', '6', '=']);
+		Assert.strictEqual(
+			calc.answer,
+			1.986,
 		);
 	});
 
