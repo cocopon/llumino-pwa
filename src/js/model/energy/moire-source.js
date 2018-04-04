@@ -11,7 +11,7 @@ export default class ImpactSource extends Source {
 			x, y
 		);
 
-		const r = Easing.outQuad(1 - this.power_, 0, 1, 1) * 4;
+		const r = Easing.outQuad(1 - this.power_, 0, 1, 1) * 3;
 		const dd = MathUtil.limit(
 			1 - Math.pow(Math.abs(d - r) * 0.8, 0.9),
 			0, 1
@@ -21,6 +21,6 @@ export default class ImpactSource extends Source {
 	}
 
 	update() {
-		this.power_ = Math.max(this.power_ - 0.012, 0);
+		this.power_ = Math.max(this.power_ - 0.015, 0);
 	}
 }

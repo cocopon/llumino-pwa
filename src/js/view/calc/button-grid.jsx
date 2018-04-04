@@ -31,7 +31,7 @@ type Props = {
 const className = ClassName('calc', 'buttonGrid');
 
 export default class ButtonGrid extends React.Component<Props> {
-	buttonElems_: HTMLButtonElement[] = [];
+	energyElems_: HTMLElement[] = [];
 	shouldDispose_: boolean = false;
 	energyCache_: number[] = [];
 	energyField_: EnergyField = new EnergyField();
@@ -70,14 +70,20 @@ export default class ButtonGrid extends React.Component<Props> {
 					<button
 						className={className('button')}
 						data-button-id={buttonId}
+						data-index={index}
 						onClick={this.onButtonClick_}
-						ref={(buttonElem) => {
-							if (buttonElem) {
-								this.buttonElems_[index] = buttonElem;
-							}
-						}}
 					>
-						{text}
+						<span
+							className={className('buttonEnergy')}
+							ref={(buttonElem) => {
+								if (buttonElem) {
+									this.energyElems_[index] = buttonElem;
+								}
+							}}
+						/>
+						<span className={className('buttonText')}>
+							{text}
+						</span>
 					</button>
 				</div>
 			);
@@ -94,8 +100,8 @@ export default class ButtonGrid extends React.Component<Props> {
 		const buttonId = (buttonElem.dataset.buttonId: any);
 		this.props.onButtonClick(buttonId);
 
-		const index = this.buttonElems_.indexOf(buttonElem);
-		if (index >= 0) {
+		const index = Number(buttonElem.dataset.index);
+		if (!isNaN(index)) {
 			const y = Math.floor(index / H_BUTTON_COUNT);
 			const x = index % H_BUTTON_COUNT;
 			const source = new MoireSource(x, y);
@@ -106,8 +112,8 @@ export default class ButtonGrid extends React.Component<Props> {
 	onTick_() {
 		this.energyField_.update();
 
-		this.buttonElems_.forEach((buttonElem, index) => {
-			if (!buttonElem) {
+		this.energyElems_.forEach((energyElem, index) => {
+			if (!energyElem) {
 				return;
 			}
 
@@ -115,19 +121,7 @@ export default class ButtonGrid extends React.Component<Props> {
 			const x = index % H_BUTTON_COUNT;
 			const energy = this.energyField_.getEnergy(x, y);
 			if (energy !== this.energyCache_[index]) {
-				const r = Math.floor(MathUtil.limit(
-					MathUtil.map(energy, 0, 1, 8, 255),
-					0, 255,
-				));
-				const g = Math.floor(MathUtil.limit(
-					MathUtil.map(energy, 0, 1, 8, 0),
-					0, 255,
-				));
-				const b = Math.floor(MathUtil.limit(
-					MathUtil.map(energy, 0, 1, 8, 255),
-					0, 255,
-				));
-				buttonElem.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+				energyElem.style.opacity = `${energy}`;
 			}
 			this.energyCache_[index] = energy;
 		});
