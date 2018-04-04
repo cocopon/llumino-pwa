@@ -4,7 +4,7 @@ import React from 'react';
 
 import ClassName from '../../misc/class-name';
 
-import type {ButtonId} from '../../logic/button-id';
+import type {ButtonId} from '../../model/button-id';
 
 const BUTTON_IDS: ButtonId[] = [
 	'c', '0', '0', '/',

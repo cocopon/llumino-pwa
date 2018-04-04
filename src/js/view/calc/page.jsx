@@ -10,7 +10,7 @@ import ButtonGrid from './button-grid';
 import Display from './display';
 
 import type {CalcAction} from '../../actions/calc-actions';
-import type {ButtonId} from '../../logic/button-id';
+import type {ButtonId} from '../../model/button-id';
 import type {CalcState} from '../../reducer/calc-reducer';
 import type {RootState} from '../../reducer/root-reducer';
 

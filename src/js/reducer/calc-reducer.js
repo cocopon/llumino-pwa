@@ -2,8 +2,8 @@
 
 import * as ReduxActions from 'redux-actions';
 
-import Calculator from '../logic/calculator';
 import FlowUtil from '../misc/flow-util';
+import Calculator from '../model/calculator';
 
 import type {
 	CalcPushButtonAction

@@ -1,6 +1,6 @@
 // @flow
 
-import type {ButtonId} from '../logic/button-id';
+import type {ButtonId} from '../model/button-id';
 
 export type CalcPushButtonAction = {
 	buttonId: ButtonId,
