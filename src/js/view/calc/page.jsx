@@ -6,8 +6,8 @@ import * as Redux from 'redux';
 
 import * as CalcActionCreators from '../../action-creators/calc-action-creators';
 import ClassName from '../../misc/class-name';
-import NumberFormatter from '../../misc/number-formatter';
 import ButtonGrid from './button-grid';
+import Display from './display';
 
 import type {CalcAction} from '../../actions/calc-actions';
 import type {ButtonId} from '../../logic/button-id';
@@ -34,7 +34,9 @@ class CalcPage extends React.Component<Props> {
 			<div className={className()}>
 				<div className={className('innerLayout')}>
 					<div className={className('displayLayout')}>
-						{NumberFormatter.format(pageState.calculator.displayNumber)}
+						<Display
+							displayNumber={pageState.calculator.displayNumber}
+						/>
 					</div>
 					<div className={className('gridLayout')}>
 						<ButtonGrid
