@@ -32,12 +32,16 @@ class CalcPage extends React.Component<Props> {
 		const pageState = this.props.pageState;
 		return (
 			<div className={className()}>
-				<div>
-					{NumberFormatter.format(pageState.calculator.displayNumber)}
+				<div className={className('innerLayout')}>
+					<div className={className('displayLayout')}>
+						{NumberFormatter.format(pageState.calculator.displayNumber)}
+					</div>
+					<div className={className('gridLayout')}>
+						<ButtonGrid
+							onButtonClick={this.onGridButtonClick_}
+						/>
+					</div>
 				</div>
-				<ButtonGrid
-					onButtonClick={this.onGridButtonClick_}
-				/>
 			</div>
 		);
 	}

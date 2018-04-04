@@ -30,14 +30,18 @@ export default class ButtonGrid extends React.Component<Props> {
 	render() {
 		const buttonElems = BUTTON_IDS.map((buttonId, index) => {
 			return (
-				<button
-					className={className('button')}
-					data-button-id={buttonId}
+				<div
+					className={className('buttonLayout')}
 					key={index}
-					onClick={this.onButtonClick_}
 				>
-					{buttonId}
-				</button>
+					<button
+						className={className('button')}
+						data-button-id={buttonId}
+						onClick={this.onButtonClick_}
+					>
+						{buttonId}
+					</button>
+				</div>
 			);
 		});
 		return (

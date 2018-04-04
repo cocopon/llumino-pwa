@@ -1,7 +1,5 @@
-html {
-	background-color: black;
-	color: white;
-}
-
 @import 'common/reset';
+@import 'common/base';
+
 @import 'components/calc/button-grid';
+@import 'components/calc/page';
