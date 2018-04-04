@@ -13,6 +13,12 @@ const BUTTON_IDS: ButtonId[] = [
 	'1', '2', '3', '+',
 	'0', '.', '0', '=',
 ];
+const BUTTON_ID_TO_TEXT_MAP: {[ButtonId]: string} = {
+	'c': 'C',
+	'-': '−',
+	'*': '×',
+	'/': '÷',
+};
 
 type Props = {
 	onButtonClick: (buttonId: ButtonId) => void,
@@ -29,6 +35,7 @@ export default class ButtonGrid extends React.Component<Props> {
 
 	render() {
 		const buttonElems = BUTTON_IDS.map((buttonId, index) => {
+			const text = BUTTON_ID_TO_TEXT_MAP[buttonId] || buttonId;
 			return (
 				<div
 					className={className('buttonLayout')}
@@ -39,7 +46,7 @@ export default class ButtonGrid extends React.Component<Props> {
 						data-button-id={buttonId}
 						onClick={this.onButtonClick_}
 					>
-						{buttonId}
+						{text}
 					</button>
 				</div>
 			);

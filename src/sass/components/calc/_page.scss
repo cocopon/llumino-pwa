@@ -8,8 +8,9 @@ $prefix: 'calc';
 		padding: 8px;
 	}
 	&_displayLayout {
-		height: 64px;
-		line-height: 64px;
+		font-size: 2rem;
+		height: 160px;
+		line-height: 160px;
 		text-align: right;
 	}
 	&_gridLayout {
