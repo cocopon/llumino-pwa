@@ -44,7 +44,9 @@ class ShowingAnswerState extends State {
 			return nextState.pushButton(buttonId);
 		}
 		if (buttonType === 'clear') {
-			this.calc_.answer_ = 0;
+			this.calc_.clear({
+				answer: true,
+			});
 			return this;
 		}
 		if (buttonType === 'equal') {
@@ -64,11 +66,20 @@ class InputtingDigitsState extends State {
 		const buttonType = ButtonIdUtil.getType(buttonId);
 
 		if (buttonType === 'digit') {
-			if (buttonId !== '.' ||
-				// Avoid duplicated dots (e.g. 3.14.16)
-				this.calc_.inputBuffers_.indexOf('.') < 0) {
-				this.calc_.inputBuffers_.push(buttonId);
+			if (buttonId === '.') {
+				if (this.calc_.inputBuffers_.length === 0) {
+					this.calc_.inputBuffers_.push(
+						'0',
+						buttonId,
+					);
+					return this;
+				}
+				if (this.calc_.inputBuffers_.indexOf('.') >= 0) {
+					// Ignore duplicated dots (e.g. 3.14.16)
+					return this;
+				}
 			}
+			this.calc_.inputBuffers_.push(buttonId);
 			return this;
 		}
 
@@ -80,11 +91,15 @@ class InputtingDigitsState extends State {
 
 		if (buttonType === 'clear') {
 			if (this.calc_.inputBuffers_.length === 0) {
-				this.calc_.operatorBuffer_ = null;
+				this.calc_.clear({
+					operatorBuffer: true,
+				});
 				const nextState = new ShowingAnswerState(this.calc_);
 				return nextState.pushButton(buttonId);
 			}
-			this.calc_.inputBuffers_.splice(0);
+			this.calc_.clear({
+				inputBuffers: true,
+			});
 			return this;
 		}
 
@@ -112,9 +127,23 @@ class InputtingOperatorState extends State {
 			this.calc_.operatorBuffer_ = (buttonId: any);
 			return this;
 		}
+		if (buttonType === 'clear') {
+			this.calc_.clear({
+				answer: true,
+				inputBuffers: true,
+				operatorBuffer: true,
+			});
+			return new ShowingAnswerState(this.calc_);
+		}
 		throw new Error('not implemented');
 	}
 }
+
+type ClearTarget = {
+	answer?: boolean,
+	inputBuffers?: boolean,
+	operatorBuffer?: boolean,
+};
 
 export default class Calculator {
 	answer_: number = 0;
@@ -134,10 +163,24 @@ export default class Calculator {
 		this.state_ = this.state_.pushButton(buttonId);
 	}
 
+	clear(target: ClearTarget) {
+		if (target.answer) {
+			this.answer_ = 0;
+		}
+		if (target.inputBuffers) {
+			this.inputBuffers_.splice(0);
+		}
+		if (target.operatorBuffer) {
+			this.operatorBuffer_ = null;
+		}
+	}
+
 	operate_() {
 		const n1 = this.answer_;
 		const n2 = createNumberFromButtonIds(this.inputBuffers_);
-		this.inputBuffers_.splice(0);
+		this.clear({
+			inputBuffers: true,
+		});
 
 		if (!this.operatorBuffer_) {
 			this.answer_ = n2;

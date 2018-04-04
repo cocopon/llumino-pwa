@@ -61,12 +61,42 @@ describe('Calculator', () => {
 		);
 	});
 
+	it('should clear inputting digits with operator', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'3', '1', '4', '+',
+			'c',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			0,
+		);
+	});
+
 	it('should input decimal number directly', () => {
 		const calc = new Calculator();
 		pushButtons(calc, ['2', '.', '7', '2', '=']);
 		Assert.strictEqual(
 			calc.answer,
 			2.72,
+		);
+	});
+
+	it('should treat single `.` as 0', () => {
+		const calc = new Calculator();
+		pushButtons(calc, ['.', '=']);
+		Assert.strictEqual(
+			calc.answer,
+			0,
+		);
+	});
+
+	it('should treat digits that start with `.` as `0.`', () => {
+		const calc = new Calculator();
+		pushButtons(calc, ['.', '4', '6', '=']);
+		Assert.strictEqual(
+			calc.answer,
+			0.46,
 		);
 	});
 
