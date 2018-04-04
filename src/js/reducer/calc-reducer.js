@@ -6,7 +6,7 @@ import FlowUtil from '../misc/flow-util';
 import Calculator from '../model/calculator';
 
 import type {
-	CalcPushButtonAction
+	CalcPushButtonAction,
 } from '../actions/calc-actions';
 
 export type CalcState = {

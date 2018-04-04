@@ -6,19 +6,19 @@ $prefix: 'calc';
 
 	&_buttonLayout {
 		box-sizing: border-box;
-		flex-basis: calc(25% - 1px);
+		flex-basis: calc(25% - 2px);
 
 		&:nth-child(4n + 2),
 		&:nth-child(4n + 3),
 		&:nth-child(4n + 4) {
-			margin-left: 1px;
+			margin-left: 2px;
 		}
 		&:nth-child(n + 5) {
-			margin-top: 1px;
+			margin-top: 2px;
 		}
 	}
 	&_button {
-		background-color: #222;
+		background-color: rgb(8, 8, 8);
 		color: white;
 		display: block;
 		font-size: 1.2rem;
