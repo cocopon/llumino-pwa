@@ -14,6 +14,14 @@ const MathUtil = {
 		const dy = y2 - y1;
 		return Math.sqrt(dx * dx + dy * dy);
 	},
+
+	random(min: number, max: number) {
+		return MathUtil.map(
+			Math.random(),
+			0, 1,
+			min, max,
+		);
+	},
 };
 
 export default MathUtil;

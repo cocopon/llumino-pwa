@@ -29,6 +29,7 @@ type Props = {
 };
 
 const className = ClassName('calc', 'buttonGrid');
+const EMPTY_HANDLER = () => {};
 
 export default class ButtonGrid extends React.Component<Props> {
 	energyElems_: HTMLElement[] = [];
@@ -72,6 +73,7 @@ export default class ButtonGrid extends React.Component<Props> {
 						data-button-id={buttonId}
 						data-index={index}
 						onClick={this.onButtonClick_}
+						onTouchStart={EMPTY_HANDLER}
 					>
 						<span
 							className={className('buttonEnergy')}
@@ -121,7 +123,7 @@ export default class ButtonGrid extends React.Component<Props> {
 			const x = index % H_BUTTON_COUNT;
 			const energy = this.energyField_.getEnergy(x, y);
 			if (energy !== this.energyCache_[index]) {
-				energyElem.style.opacity = `${energy}`;
+				energyElem.style.opacity = `${energy * MathUtil.random(0.9, 1)}`;
 			}
 			this.energyCache_[index] = energy;
 		});
