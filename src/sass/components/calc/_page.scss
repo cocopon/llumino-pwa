@@ -22,14 +22,14 @@ html.#{$prefix} {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		padding: 8px;
 	}
 	&_displayLayout {
 		flex-grow: 1;
-		margin-left: 9vw;
-		margin-right: 9vw;
+		margin-left: 9.4vw;
+		margin-right: 9.4vw;
 		position: relative;
 	}
 	&_gridLayout {
+		margin-bottom: env(safe-area-inset-bottom);
 	}
 }

@@ -23,6 +23,7 @@ $prefix: 'calc';
 		width: 100%;
 	}
 	&_button {
+		-webkit-tap-highlight-color: transparent;
 		display: table;
 		height: 100%;
 		left: 0;
