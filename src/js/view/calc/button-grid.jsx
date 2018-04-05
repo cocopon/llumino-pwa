@@ -68,25 +68,27 @@ export default class ButtonGrid extends React.Component<Props> {
 					className={className('buttonLayout')}
 					key={index}
 				>
-					<button
-						className={className('button')}
-						data-button-id={buttonId}
-						data-index={index}
-						onClick={this.onButtonClick_}
-						onTouchStart={EMPTY_HANDLER}
-					>
-						<span
-							className={className('buttonEnergy')}
-							ref={(buttonElem) => {
-								if (buttonElem) {
-									this.energyElems_[index] = buttonElem;
-								}
-							}}
-						/>
-						<span className={className('buttonText')}>
-							{text}
-						</span>
-					</button>
+					<div className={className('buttonInnerLayout')}>
+						<button
+							className={className('button')}
+							data-button-id={buttonId}
+							data-index={index}
+							onClick={this.onButtonClick_}
+							onTouchStart={EMPTY_HANDLER}
+						>
+							<span
+								className={className('buttonEnergy')}
+								ref={(buttonElem) => {
+									if (buttonElem) {
+										this.energyElems_[index] = buttonElem;
+									}
+								}}
+							/>
+							<span className={className('buttonText')}>
+								{text}
+							</span>
+						</button>
+					</div>
 				</div>
 			);
 		});

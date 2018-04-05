@@ -7,6 +7,7 @@ $prefix: 'calc';
 	&_buttonLayout {
 		box-sizing: border-box;
 		flex-basis: calc(25% - #{$calc-button-grid-spacing});
+		position: relative;
 
 		&:nth-child(4n + 2),
 		&:nth-child(4n + 3),
@@ -17,13 +18,19 @@ $prefix: 'calc';
 			margin-top: $calc-button-grid-spacing;
 		}
 	}
-	&_button {
-		background-color: transparent;
-		display: block;
-		height: 100%;
-		padding: 32px;
-		position: relative;
+	&_buttonInnerLayout {
+		height: 11vh;
 		width: 100%;
+	}
+	&_button {
+		display: table;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 100%;
+
 
 		&:active {
 			background-color: #f0f;
@@ -41,7 +48,7 @@ $prefix: 'calc';
 	}
 	&_buttonText {
 		color: #b7b7b7;
-		font-size: 1.5rem;
+		font-size: 5vw;
 		font-weight: 300;
 	}
 }

@@ -92,18 +92,53 @@ type DisplayDigit = {
 
 const DELETION_DELAY = 1000;
 
+const AVAILABLE_DIGITS: string[] = [
+	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+	',', '.',
+	'+', '-',
+	'N', 'a',
+	'∞',
+];
+
 export default class InnerDisplay {
 	elem_: HTMLElement;
 	displayDigits_: DisplayDigit[] = [];
+	ddWidthMap_: {[string]: number} = {};
+	needsRebuildingWidthMap_: boolean = true;
 	outdatedDisplayDigits_: DisplayDigit[] = [];
 
 	constructor() {
 		const elem = document.createElement('div');
 		elem.classList.add(className('digitsLayout'));
 		this.elem_ = elem;
+
+		const phElem = document.createElement('div');
+		phElem.classList.add(
+			...className('digit', {placeholder: true}).split(' '),
+		);
+		this.elem_.appendChild(phElem);
+		this.placeholderElem_ = phElem;
+
+		window.addEventListener(
+			'resize',
+			this.onWindowResize_.bind(this),
+		);
+	}
+
+	buildDisplayDigitsWidthMap_() {
+
+		this.ddWidthMap_ = {};
+		AVAILABLE_DIGITS.forEach((text) => {
+			this.placeholderElem_.textContent = text;
+			this.ddWidthMap_[text] = this.placeholderElem_.getBoundingClientRect().width;
+		});
 	}
 
 	updateText(text: string) {
+		if (this.needsRebuildingWidthMap_) {
+			this.buildDisplayDigitsWidthMap_();
+		}
+
 		const {
 			nextDigits,
 			unusedDigits,
@@ -111,13 +146,17 @@ export default class InnerDisplay {
 			return dd.digit;
 		}));
 
-		// TODO: Support propotional font
 		const displayWidth = this.elem_.getBoundingClientRect().width;
-		const digitsWidth = 30 * nextDigits.length;
-		const ox = displayWidth - digitsWidth;
+		const totalWidth = nextDigits.reduce((total, digit) => {
+			return total + this.ddWidthMap_[digit.text];
+		}, 0);
+		let x = displayWidth - totalWidth;
 		nextDigits.forEach((digit, index) => {
-			digit.left = ox + index * 30;
+			const w = this.ddWidthMap_[digit.text];
+			digit.left = x;
 			digit.top = 0;
+
+			x += w;
 		});
 
 		// Layout new digits
@@ -192,5 +231,9 @@ export default class InnerDisplay {
 
 	get element(): HTMLElement {
 		return this.elem_;
+	}
+
+	onWindowResize_() {
+		this.needsRebuildingWidthMap_ = true;
 	}
 }
