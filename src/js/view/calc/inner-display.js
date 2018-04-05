@@ -149,7 +149,7 @@ export default class InnerDisplay {
 			digit.deletionDate = now;
 
 			const digitElem = prevDigitElems[digit.index];
-			const delay = (unusedDigits.length - index - 1) * 0.03;
+			const delay = (unusedDigits.length - index - 1) * 0.02;
 			digitElem.style.animationDelay = `${delay}s`;
 			digitElem.classList.add(
 				...className('digit', {hide: true}).split(' '),
