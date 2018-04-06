@@ -135,6 +135,13 @@ class InputtingOperatorState extends State {
 			});
 			return new ShowingAnswerState(this.calc_);
 		}
+		if (buttonType === 'equal') {
+			this.calc_.clear({
+				inputBuffers: true,
+				operatorBuffer: true,
+			});
+			return new ShowingAnswerState(this.calc_);
+		}
 		throw new Error('not implemented');
 	}
 }

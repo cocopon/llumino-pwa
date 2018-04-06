@@ -109,6 +109,18 @@ describe('Calculator', () => {
 		);
 	});
 
+	it('should cancel buffered operator', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', '2', '*',
+			'=',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			12,
+		);
+	});
+
 	it('should operate a number', () => {
 		{
 			const calc = new Calculator();
