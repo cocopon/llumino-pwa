@@ -17,7 +17,7 @@ export default class ImpactSource extends Source {
 			0, 1
 		);
 
-		return dd * this.power_ * 0.3;
+		return dd * this.power_ * 0.7;
 	}
 
 	update() {
