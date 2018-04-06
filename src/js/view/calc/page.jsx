@@ -25,6 +25,7 @@ class CalcPage extends React.Component<Props> {
 	constructor(props: Props) {
 		super(props);
 
+		(this: any).onDisplayClick_ = this.onDisplayClick_.bind(this);
 		(this: any).onGridButtonClick_ = this.onGridButtonClick_.bind(this);
 	}
 
@@ -36,6 +37,7 @@ class CalcPage extends React.Component<Props> {
 					<div className={className('displayLayout')}>
 						<Display
 							displayNumber={pageState.calculator.displayNumber}
+							onClick={this.onDisplayClick_}
 						/>
 					</div>
 					<div className={className('gridLayout')}>
@@ -46,6 +48,10 @@ class CalcPage extends React.Component<Props> {
 				</div>
 			</div>
 		);
+	}
+
+	onDisplayClick_() {
+		// TODO: Show menu
 	}
 
 	onGridButtonClick_(buttonId: ButtonId) {

@@ -144,7 +144,6 @@ export default class ButtonGrid extends React.Component<Props> {
 		const modifierClassName = className('button', {active: true}).split(' ')[1];
 		const buttonElem = this.buttonElems_[index];
 
-		console.log([index, active, buttonElem.textContent]);
 		if (active) {
 			buttonElem.classList.add(modifierClassName);
 		} else {

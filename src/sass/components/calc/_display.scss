@@ -28,6 +28,17 @@ $prefix: 'calc';
 	top: 0;
 	width: 100%;
 
+	&:active {
+		background-color: rgba(white, 0.05);
+	}
+
+	&_innerLayout {
+		box-sizing: border-box;
+		margin-left: 9.4vw;
+		margin-right: 9.4vw;
+		position: relative;
+		width: 100%;
+	}
 	&_digitsLayout {
 		position: relative;
 		width: 100%;

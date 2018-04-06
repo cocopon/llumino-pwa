@@ -10,9 +10,11 @@ import InnerDisplay from './inner-display';
 
 type Props = {
 	displayNumber: number;
+	onClick: () => void;
 }
 
 const className = ClassName('calc', 'display');
+const EMPTY_HANDLER = () => {};
 
 export default class Display extends React.Component<Props> {
 	innerDisplay_: InnerDisplay;
@@ -22,7 +24,6 @@ export default class Display extends React.Component<Props> {
 		if (!elem) {
 			return;
 		}
-
 	}
 
 	applyChanges_() {
@@ -31,9 +32,10 @@ export default class Display extends React.Component<Props> {
 			if (!elem) {
 				return;
 			}
+			const innerElem = elem.children[0];
 
 			const innerDisplay = new InnerDisplay();
-			elem.appendChild(innerDisplay.element);
+			innerElem.appendChild(innerDisplay.element);
 			this.innerDisplay_ = innerDisplay;
 		}
 
@@ -52,7 +54,14 @@ export default class Display extends React.Component<Props> {
 	render() {
 		const text = NumberFormatter.format(this.props.displayNumber);
 		return (
-			<div className={className()}/>
+			<button
+				className={className()}
+				onClick={this.props.onClick}
+				onTouchStart={EMPTY_HANDLER}
+			>
+				<div className={className('innerLayout')}>
+				</div>
+			</button>
 		);
 	}
 }
