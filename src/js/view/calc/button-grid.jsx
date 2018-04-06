@@ -4,6 +4,7 @@ import React from 'react';
 
 import ClassName from '../../misc/class-name';
 import MathUtil from '../../misc/math-util';
+import ButtonIdUtil from '../../model/button-id';
 import EnergyField from '../../model/energy/field';
 import MoireSource from '../../model/energy/moire-source';
 
@@ -41,7 +42,11 @@ export default class ButtonGrid extends React.Component<Props> {
 		super(props);
 
 		(this: any).onButtonClick_ = this.onButtonClick_.bind(this);
+		(this: any).onButtonKeyDown_ = this.onButtonKeyDown_.bind(this);
+		(this: any).onDocumentKeyUp_ = this.onDocumentKeyUp_.bind(this);
 		(this: any).onTick_ = this.onTick_.bind(this);
+
+		document.addEventListener('keyup', this.onDocumentKeyUp_);
 	}
 
 	initEnergyField_() {
@@ -74,13 +79,14 @@ export default class ButtonGrid extends React.Component<Props> {
 							data-button-id={buttonId}
 							data-index={index}
 							onClick={this.onButtonClick_}
+							onKeyDown={this.onButtonKeyDown_}
 							onTouchStart={EMPTY_HANDLER}
 						>
 							<span
 								className={className('buttonEnergy')}
-								ref={(buttonElem) => {
-									if (buttonElem) {
-										this.energyElems_[index] = buttonElem;
+								ref={(elem) => {
+									if (elem) {
+										this.energyElems_[index] = elem;
 									}
 								}}
 							/>
@@ -99,6 +105,13 @@ export default class ButtonGrid extends React.Component<Props> {
 		);
 	}
 
+	generateEnergy_(buttonIndex: number) {
+		const y = Math.floor(buttonIndex / H_BUTTON_COUNT);
+		const x = buttonIndex % H_BUTTON_COUNT;
+		const source = new MoireSource(x, y);
+		this.energyField_.add(source);
+	}
+
 	onButtonClick_(e: SyntheticEvent<HTMLButtonElement>) {
 		const buttonElem = e.currentTarget;
 		const buttonId = (buttonElem.dataset.buttonId: any);
@@ -106,10 +119,25 @@ export default class ButtonGrid extends React.Component<Props> {
 
 		const index = Number(buttonElem.dataset.index);
 		if (!isNaN(index)) {
-			const y = Math.floor(index / H_BUTTON_COUNT);
-			const x = index % H_BUTTON_COUNT;
-			const source = new MoireSource(x, y);
-			this.energyField_.add(source);
+			this.generateEnergy_(index);
+		}
+	}
+
+	onButtonKeyDown_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
+		e.preventDefault();
+
+		// TODO: Highlight button
+	}
+
+	onDocumentKeyUp_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
+		const buttonId = ButtonIdUtil.fromKey(e.key, e.keyCode);
+		if (buttonId) {
+			this.props.onButtonClick(buttonId);
+
+			const index = BUTTON_IDS.indexOf(buttonId);
+			if (index >= 0) {
+				this.generateEnergy_(index);
+			}
 		}
 	}
 

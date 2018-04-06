@@ -29,12 +29,14 @@ const ButtonIdUtil = {
 		return !isNaN(parseInt(buttonId, 10)) ||
 			buttonId === '.';
 	},
+
 	isOperator(buttonId: ButtonId): boolean {
 		return buttonId === '+' ||
 			buttonId === '-' ||
 			buttonId === '*' ||
 			buttonId === '/';
 	},
+
 	getType(buttonId: ButtonId): ?ButtonType {
 		if (ButtonIdUtil.isDigit(buttonId)) {
 			return 'digit';
@@ -50,6 +52,27 @@ const ButtonIdUtil = {
 		}
 		return null;
 	},
+
+	fromKey(key: string, keyCode: number): ?ButtonId {
+		if (ButtonIdUtil.getType((key: any)) !== null) {
+			return (key: any);
+		}
+
+		if (keyCode === 8) {
+			// BS
+			return 'c';
+		}
+		if (keyCode === 13) {
+			// CR
+			return '=';
+		}
+
+		const text = String.fromCharCode(keyCode).toLowerCase();
+		return (ButtonIdUtil.getType((text: any)) !== null) ?
+			(text: any) :
+			null;
+	},
+
 	buildNumber(buttonIds: ButtonId[]): number {
 		if (buttonIds.length === 0) {
 			return 0;
