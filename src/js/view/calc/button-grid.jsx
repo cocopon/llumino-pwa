@@ -33,6 +33,7 @@ const className = ClassName('calc', 'buttonGrid');
 const EMPTY_HANDLER = () => {};
 
 export default class ButtonGrid extends React.Component<Props> {
+	buttonElems_: HTMLButtonElement[] = [];
 	energyElems_: HTMLElement[] = [];
 	shouldDispose_: boolean = false;
 	energyCache_: number[] = [];
@@ -43,9 +44,11 @@ export default class ButtonGrid extends React.Component<Props> {
 
 		(this: any).onButtonClick_ = this.onButtonClick_.bind(this);
 		(this: any).onButtonKeyDown_ = this.onButtonKeyDown_.bind(this);
+		(this: any).onDocumentKeyDown_ = this.onDocumentKeyDown_.bind(this);
 		(this: any).onDocumentKeyUp_ = this.onDocumentKeyUp_.bind(this);
 		(this: any).onTick_ = this.onTick_.bind(this);
 
+		document.addEventListener('keydown', this.onDocumentKeyDown_);
 		document.addEventListener('keyup', this.onDocumentKeyUp_);
 	}
 
@@ -63,6 +66,9 @@ export default class ButtonGrid extends React.Component<Props> {
 
 	componentWillUnmount() {
 		this.disposeEnergyField_();
+
+		document.removeEventListener('keydown', this.onDocumentKeyDown_);
+		document.removeEventListener('keyup', this.onDocumentKeyUp_);
 	}
 
 	render() {
@@ -81,6 +87,11 @@ export default class ButtonGrid extends React.Component<Props> {
 							onClick={this.onButtonClick_}
 							onKeyDown={this.onButtonKeyDown_}
 							onTouchStart={EMPTY_HANDLER}
+							ref={(elem) => {
+								if (elem) {
+									this.buttonElems_[index] = elem;
+								}
+							}}
 						>
 							<span
 								className={className('buttonEnergy')}
@@ -105,9 +116,16 @@ export default class ButtonGrid extends React.Component<Props> {
 		);
 	}
 
-	generateEnergy_(buttonIndex: number) {
-		const y = Math.floor(buttonIndex / H_BUTTON_COUNT);
-		const x = buttonIndex % H_BUTTON_COUNT;
+	handleButtonClick_(buttonId: ButtonId) {
+		this.props.onButtonClick(buttonId);
+
+		const index = BUTTON_IDS.indexOf(buttonId);
+		if (index < 0) {
+			return;
+		}
+
+		const y = Math.floor(index / H_BUTTON_COUNT);
+		const x = index % H_BUTTON_COUNT;
 		const source = new MoireSource(x, y);
 		this.energyField_.add(source);
 	}
@@ -115,29 +133,40 @@ export default class ButtonGrid extends React.Component<Props> {
 	onButtonClick_(e: SyntheticEvent<HTMLButtonElement>) {
 		const buttonElem = e.currentTarget;
 		const buttonId = (buttonElem.dataset.buttonId: any);
-		this.props.onButtonClick(buttonId);
-
-		const index = Number(buttonElem.dataset.index);
-		if (!isNaN(index)) {
-			this.generateEnergy_(index);
-		}
+		this.handleButtonClick_(buttonId);
 	}
 
 	onButtonKeyDown_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
 		e.preventDefault();
+	}
 
-		// TODO: Highlight button
+	updateButtonActive_(index: number, active: boolean) {
+		const modifierClassName = className('button', {active: true}).split(' ')[1];
+		const buttonElem = this.buttonElems_[index];
+
+		console.log([index, active, buttonElem.textContent]);
+		if (active) {
+			buttonElem.classList.add(modifierClassName);
+		} else {
+			buttonElem.classList.remove(modifierClassName);
+		}
+	}
+
+	onDocumentKeyDown_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
+		const buttonId = ButtonIdUtil.fromKey(e.key, e.keyCode);
+		if (buttonId) {
+			const index = BUTTON_IDS.indexOf(buttonId);
+			this.updateButtonActive_(index, true);
+		}
 	}
 
 	onDocumentKeyUp_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
 		const buttonId = ButtonIdUtil.fromKey(e.key, e.keyCode);
 		if (buttonId) {
-			this.props.onButtonClick(buttonId);
+			this.handleButtonClick_(buttonId);
 
 			const index = BUTTON_IDS.indexOf(buttonId);
-			if (index >= 0) {
-				this.generateEnergy_(index);
-			}
+			this.updateButtonActive_(index, false);
 		}
 	}
 

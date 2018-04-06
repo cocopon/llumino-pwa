@@ -32,8 +32,8 @@ $prefix: 'calc';
 		top: 0;
 		width: 100%;
 
-
-		&:active {
+		&:active,
+		&#{&}-active {
 			background-color: #f0f;
 		}
 	}
