@@ -73,6 +73,18 @@ describe('Calculator', () => {
 		);
 	});
 
+	it('should delete a last inputt digit', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'3', '.', '1', '4', 'bs',
+			'=',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			3.1,
+		);
+	});
+
 	it('should input decimal number directly', () => {
 		const calc = new Calculator();
 		pushButtons(calc, ['2', '.', '7', '2', '=']);

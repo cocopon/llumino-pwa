@@ -89,6 +89,13 @@ class InputtingDigitsState extends State {
 			return nextState.pushButton(buttonId);
 		}
 
+		if (buttonType === 'delete') {
+			if (this.calc_.inputBuffers_.length > 0) {
+				this.calc_.inputBuffers_.pop();
+				return this;
+			}
+		}
+
 		if (buttonType === 'clear') {
 			if (this.calc_.inputBuffers_.length === 0) {
 				this.calc_.clear({

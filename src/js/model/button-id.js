@@ -20,6 +20,7 @@ export type OperatorButtonId = '+' |
 
 export type ButtonId = NumberButtonId |
 	OperatorButtonId |
+	'bs' |
 	'c' |
 	'.' |
 	'=';
@@ -44,6 +45,9 @@ const ButtonIdUtil = {
 		if (ButtonIdUtil.isOperator(buttonId)) {
 			return 'operator';
 		}
+		if (buttonId === 'bs') {
+			return 'delete';
+		}
 		if (buttonId === 'c') {
 			return 'clear';
 		}
@@ -60,7 +64,7 @@ const ButtonIdUtil = {
 
 		if (keyCode === 8) {
 			// BS
-			return 'c';
+			return 'bs';
 		}
 		if (keyCode === 13) {
 			// CR
