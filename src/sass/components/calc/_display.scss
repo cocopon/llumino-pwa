@@ -38,10 +38,15 @@ $prefix: 'calc';
 	height: 100%;
 	left: 0;
 	top: 0;
+	transition: opacity 0.2s ease-out;
 	width: 100%;
 
 	&:active {
 		background-color: rgba(white, 0.05);
+	}
+
+	&#{&}-dimmed {
+		opacity: 0.5;
 	}
 
 	&_innerLayout {

@@ -9,6 +9,7 @@ import ClassName from '../../misc/class-name';
 import InnerDisplay from './inner-display';
 
 type Props = {
+	dimmed: boolean,
 	displayNumber: number,
 	onClick: () => void,
 	shakeCount: number,
@@ -81,7 +82,7 @@ export default class Display extends React.Component<Props, State> {
 	render() {
 		return (
 			<button
-				className={className()}
+				className={className({dimmed: this.props.dimmed})}
 				onClick={this.props.onClick}
 				onTouchStart={EMPTY_HANDLER}
 			>
