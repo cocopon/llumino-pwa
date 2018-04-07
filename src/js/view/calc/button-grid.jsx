@@ -27,6 +27,7 @@ const BUTTON_ID_TO_TEXT_MAP: {[ButtonId]: string} = {
 };
 
 type Props = {
+	inefficientButtonIds: ButtonId[],
 	onButtonClick: (buttonId: ButtonId) => void,
 };
 
@@ -72,6 +73,10 @@ export default class ButtonGrid extends React.Component<Props> {
 		document.removeEventListener('keyup', this.onDocumentKeyUp_);
 	}
 
+	isInefficientButton_(buttonId: ButtonId): boolean {
+		return this.props.inefficientButtonIds.indexOf(buttonId) >= 0;
+	}
+
 	render() {
 		const buttonElems = BUTTON_IDS.map((buttonId, index) => {
 			const text = BUTTON_ID_TO_TEXT_MAP[buttonId] || buttonId;
@@ -82,7 +87,9 @@ export default class ButtonGrid extends React.Component<Props> {
 				>
 					<div className={className('buttonInnerLayout')}>
 						<button
-							className={className('button')}
+							className={className('button', {
+								inefficient: this.isInefficientButton_(buttonId),
+							})}
 							data-button-id={buttonId}
 							data-index={index}
 							onClick={this.onButtonClick_}
@@ -125,10 +132,12 @@ export default class ButtonGrid extends React.Component<Props> {
 			return;
 		}
 
-		const y = Math.floor(index / H_BUTTON_COUNT);
-		const x = index % H_BUTTON_COUNT;
-		const source = new MoireSource(x, y);
-		this.energyField_.add(source);
+		if (!this.isInefficientButton_(buttonId)) {
+			const y = Math.floor(index / H_BUTTON_COUNT);
+			const x = index % H_BUTTON_COUNT;
+			const source = new MoireSource(x, y);
+			this.energyField_.add(source);
+		}
 	}
 
 	onButtonClick_(e: SyntheticEvent<HTMLButtonElement>) {

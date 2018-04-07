@@ -42,6 +42,7 @@ class CalcPage extends React.Component<Props> {
 						<Display
 							displayNumber={pageState.calculator.displayNumber}
 							onClick={this.onDisplayClick_}
+							shakeCount={pageState.shakeCount}
 						/>
 						<div className={className('menuLayout')}>
 							<Menu
@@ -52,6 +53,7 @@ class CalcPage extends React.Component<Props> {
 					</div>
 					<div className={className('gridLayout')}>
 						<ButtonGrid
+							inefficientButtonIds={pageState.calculator.inefficientButtons}
 							onButtonClick={this.onGridButtonClick_}
 						/>
 					</div>

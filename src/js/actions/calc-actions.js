@@ -12,5 +12,10 @@ export type CalcUpdateMenuExpandedAction = {
 	type: 'CALC_UPDATE_MENU_EXPANDED',
 };
 
+export type CalcShakeDisplayAction = {
+	type: 'CALC_SHAKE_DISPLAY',
+};
+
 export type CalcAction = CalcPushButtonAction |
+	CalcShakeDisplayAction |
 	CalcUpdateMenuExpandedAction;

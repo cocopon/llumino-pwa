@@ -23,6 +23,10 @@ class State {
 		throw new Error('not implemented');
 	}
 
+	get inefficientButtons(): ButtonId[] {
+		return [];
+	}
+
 	pushButton(buttonId: ButtonId): State {
 		throw new Error('not implemented');
 	}
@@ -31,6 +35,13 @@ class State {
 class ShowingAnswerState extends State {
 	get displayNumber(): number {
 		return this.calc_.answer_;
+	}
+
+	get inefficientButtons(): ButtonId[] {
+		return [
+			'bs',
+			'=',
+		];
 	}
 
 	pushButton(buttonId: ButtonId): State {
@@ -64,6 +75,21 @@ class ShowingAnswerState extends State {
 class InputtingDigitsState extends State {
 	get displayNumber(): number {
 		return ButtonIdUtil.buildNumber(this.calc_.inputBuffers_);
+	}
+
+	get inefficientButtons(): ButtonId[] {
+		const buttonIds: ButtonId[] = [];
+		if (this.calc_.inputBuffers_.length === 0) {
+			buttonIds.push('bs');
+		}
+		if (this.calc_.inputBuffers_.length >= this.calc_.maxInputBufferCount_) {
+			buttonIds.push(
+				'0', '1', '2', '3', '4',
+				'5', '6', '7', '8', '9',
+				'.',
+			);
+		}
+		return buttonIds;
 	}
 
 	pushButton(buttonId: ButtonId): State {
@@ -128,6 +154,12 @@ class InputtingOperatorState extends State {
 		return this.calc_.answer_;
 	}
 
+	get inefficientButtons(): ButtonId[] {
+		return [
+			'bs',
+		];
+	}
+
 	pushButton(buttonId: ButtonId): State {
 		const buttonType = ButtonIdUtil.getType(buttonId);
 		if (buttonType === 'digit') {
@@ -170,6 +202,7 @@ type ClearTarget = {
 export default class Calculator {
 	answer_: number = 0;
 	inputBuffers_: ButtonId[] = [];
+	maxInputBufferCount_: number = 10;
 	operatorBuffer_: ?OperatorButtonId = null;
 	state_: State = new ShowingAnswerState(this);
 
@@ -179,6 +212,10 @@ export default class Calculator {
 
 	get displayNumber(): number {
 		return this.state_.displayNumber;
+	}
+
+	get inefficientButtons(): ButtonId[] {
+		return this.state_.inefficientButtons;
 	}
 
 	pushButton(buttonId: ButtonId) {

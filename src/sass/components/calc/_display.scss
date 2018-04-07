@@ -19,6 +19,17 @@ $prefix: 'calc';
 	}
 }
 
+@keyframes #{$prefix}-display_innerLayout-shake {
+	0% {
+	}
+	50% {
+		transform: translateX(-0.5em);
+	}
+	100% {
+		transform: none;
+	}
+}
+
 .#{$prefix}-display {
 	-webkit-tap-highlight-color: transparent;
 	align-items: center;
@@ -39,6 +50,13 @@ $prefix: 'calc';
 		margin-right: 9.4vw;
 		position: relative;
 		width: 100%;
+
+		&#{&}-shake {
+			animation-duration: 0.2s;
+			animation-fill-mode: forwards;
+			animation-name: #{$prefix}-display_innerLayout-shake;
+			animation-timing-function: ease-out;
+		}
 	}
 	&_digitsLayout {
 		position: relative;

@@ -7,15 +7,23 @@ import type {ButtonId} from '../model/button-id';
 import type {RootState} from '../reducer/root-reducer';
 
 export function pushButton(buttonId: ButtonId): any {
-	return (dispatch: Redux.Dispatch<CalcAction>) => {
+	return (dispatch: Redux.Dispatch<CalcAction>, getState: () => RootState) => {
 		dispatch({
 			expanded: false,
 			type: 'CALC_UPDATE_MENU_EXPANDED',
 		});
-		dispatch({
-			buttonId: buttonId,
-			type: 'CALC_PUSH_BUTTON',
-		});
+
+		const calc = getState().calc.calculator;
+		if (calc.inefficientButtons.indexOf(buttonId) < 0) {
+			dispatch({
+				buttonId: buttonId,
+				type: 'CALC_PUSH_BUTTON',
+			});
+		} else {
+			dispatch({
+				type: 'CALC_SHAKE_DISPLAY',
+			});
+		}
 	};
 }
 

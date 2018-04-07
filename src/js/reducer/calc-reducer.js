@@ -7,17 +7,20 @@ import Calculator from '../model/calculator';
 
 import type {
 	CalcPushButtonAction,
+	CalcShakeDisplayAction,
 	CalcUpdateMenuExpandedAction,
 } from '../actions/calc-actions';
 
 export type CalcState = {
 	calculator: Calculator,
 	menuExpanded: boolean,
+	shakeCount: number,
 };
 
 const INITIAL_STATE: CalcState = {
 	calculator: new Calculator(),
 	menuExpanded: false,
+	shakeCount: 0,
 };
 
 export default ReduxActions.handleActions({
@@ -31,6 +34,12 @@ export default ReduxActions.handleActions({
 	CALC_UPDATE_MENU_EXPANDED(state, action: CalcUpdateMenuExpandedAction) {
 		return FlowUtil.updateState(state, {
 			menuExpanded: action.expanded,
+		});
+	},
+
+	CALC_SHAKE_DISPLAY(state, action: CalcShakeDisplayAction) {
+		return FlowUtil.updateState(state, {
+			shakeCount: state.shakeCount + 1,
 		});
 	},
 }, INITIAL_STATE);

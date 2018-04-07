@@ -36,6 +36,13 @@ $prefix: 'calc';
 		&#{&}-active {
 			background-color: #f0f;
 		}
+
+		&#{&}-inefficient {
+			&:active,
+			&#{&}-active {
+				background-color: rgba(#f0f, 0.2);
+			}
+		}
 	}
 	&_buttonEnergy {
 		background-color: #f0f;
@@ -51,5 +58,8 @@ $prefix: 'calc';
 		color: #b7b7b7;
 		font-size: 5vw;
 		font-weight: 300;
+	}
+	&_button#{&}_button-inefficient &_buttonText {
+		opacity: 0.5;
 	}
 }
