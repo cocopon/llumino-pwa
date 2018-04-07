@@ -1,0 +1,29 @@
+$prefix: 'common';
+
+.#{$prefix}-list {
+}
+.#{$prefix}-listItem {
+	&_button {
+		box-sizing: border-box;
+		display: block;
+		padding: 4vh 4vw;
+		text-align: left;
+		width: 100%;
+
+		&:active {
+			background: rgba(white, 0.05);
+		}
+	}
+	&_icon {
+		background-color: white;
+		display: inline-block;
+		height: 3vh;
+		margin-right: 4vw;
+		vertical-align: top;
+		width: 3vh;
+	}
+	&_title {
+		line-height: 3vh;
+		vertical-align: top;
+	}
+}

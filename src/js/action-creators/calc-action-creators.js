@@ -2,7 +2,10 @@
 
 import * as Redux from 'redux';
 
+import * as CommonActionCreators from './common-action-creators';
+
 import type {CalcAction} from '../actions/calc-actions';
+import type {CommonAction} from '../actions/common-actions';
 import type {ButtonId} from '../model/button-id';
 import type {RootState} from '../reducer/root-reducer';
 
@@ -39,10 +42,16 @@ export function toggleMenu(): any {
 }
 
 export function selectMenu(itemId: string): any {
-	return (dispatch: Redux.Dispatch<CalcAction>, getState: () => RootState) => {
+	return (dispatch: Redux.Dispatch<CalcAction | CommonAction>, getState: () => RootState) => {
 		dispatch({
 			expanded: false,
 			type: 'CALC_UPDATE_MENU_EXPANDED',
 		});
+
+		if (itemId === 'settings') {
+			dispatch(
+				CommonActionCreators.changePage('setting'),
+			);
+		}
 	};
 }

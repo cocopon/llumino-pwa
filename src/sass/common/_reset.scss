@@ -3,6 +3,7 @@ html, body {
 	padding: 0;
 }
 button {
+	-webkit-tap-highlight-color: transparent;
 	appearance: none;
 	background-color: transparent;
 	border-width: 0;

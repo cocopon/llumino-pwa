@@ -1,0 +1,41 @@
+$prefix: 'setting';
+
+@keyframes #{$prefix}-page-show {
+	0% {
+		transform: translateY(100vh);
+	}
+	100% {
+		transform: none;
+	}
+}
+
+@keyframes #{$prefix}-page-hide {
+	0% {
+		transform: none;
+	}
+	100% {
+		transform: translateY(100vh);
+	}
+}
+
+.#{$prefix}-page {
+	animation-fill-mode: forwards;
+	background-color: black;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transform: translateY(100vh);
+	width: 100%;
+
+	&#{&}-hide {
+		animation-duration: 0.4s;
+		animation-name: #{$prefix}-page-hide;
+		animation-timing-function: ease-in-out;
+	}
+	&#{&}-show {
+		animation-duration: 0.4s;
+		animation-name: #{$prefix}-page-show;
+		animation-timing-function: ease-in-out;
+	}
+}
