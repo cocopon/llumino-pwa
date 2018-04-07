@@ -28,7 +28,7 @@ export default class Display extends React.Component<Props> {
 
 	applyChanges_() {
 		if (!this.innerDisplay_) {
-			const elem = ReactDom.findDOMNode(this);
+			const elem = ((ReactDom.findDOMNode(this): any): Element);
 			if (!elem) {
 				return;
 			}

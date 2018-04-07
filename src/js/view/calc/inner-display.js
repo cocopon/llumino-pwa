@@ -106,6 +106,7 @@ export default class InnerDisplay {
 	ddWidthMap_: {[string]: number} = {};
 	needsRebuildingWidthMap_: boolean = true;
 	outdatedDisplayDigits_: DisplayDigit[] = [];
+	placeholderElem_: HTMLElement;
 
 	constructor() {
 		const elem = document.createElement('div');
