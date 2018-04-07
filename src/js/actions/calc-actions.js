@@ -7,4 +7,10 @@ export type CalcPushButtonAction = {
 	type: 'CALC_PUSH_BUTTON',
 };
 
-export type CalcAction = CalcPushButtonAction;
+export type CalcUpdateMenuExpandedAction = {
+	expanded: boolean,
+	type: 'CALC_UPDATE_MENU_EXPANDED',
+};
+
+export type CalcAction = CalcPushButtonAction |
+	CalcUpdateMenuExpandedAction;

@@ -8,6 +8,7 @@ import * as CalcActionCreators from '../../action-creators/calc-action-creators'
 import ClassName from '../../misc/class-name';
 import ButtonGrid from './button-grid';
 import Display from './display';
+import Menu from './menu';
 
 import type {CalcAction} from '../../actions/calc-actions';
 import type {ButtonId} from '../../model/button-id';
@@ -16,6 +17,8 @@ import type {RootState} from '../../reducer/root-reducer';
 
 type Props = {
 	pageState: CalcState,
+	onDisplayClick: () => void,
+	onMenuItemClick: (itemId: string) => void,
 	onGridButtonClick: (buttonId: ButtonId) => void,
 };
 
@@ -26,6 +29,7 @@ class CalcPage extends React.Component<Props> {
 		super(props);
 
 		(this: any).onDisplayClick_ = this.onDisplayClick_.bind(this);
+		(this: any).onMenuItemClick_ = this.onMenuItemClick_.bind(this);
 		(this: any).onGridButtonClick_ = this.onGridButtonClick_.bind(this);
 	}
 
@@ -39,6 +43,12 @@ class CalcPage extends React.Component<Props> {
 							displayNumber={pageState.calculator.displayNumber}
 							onClick={this.onDisplayClick_}
 						/>
+						<div className={className('menuLayout')}>
+							<Menu
+								expanded={pageState.menuExpanded}
+								onItemClick={this.onMenuItemClick_}
+							/>
+						</div>
 					</div>
 					<div className={className('gridLayout')}>
 						<ButtonGrid
@@ -51,7 +61,11 @@ class CalcPage extends React.Component<Props> {
 	}
 
 	onDisplayClick_() {
-		// TODO: Show menu
+		this.props.onDisplayClick();
+	}
+
+	onMenuItemClick_(itemId: string) {
+		this.props.onMenuItemClick(itemId);
 	}
 
 	onGridButtonClick_(buttonId: ButtonId) {
@@ -67,9 +81,19 @@ function mapStateToProps(state: RootState) {
 
 function mapDispatchToProps(dispatch: Redux.Dispatch<CalcAction>) {
 	return {
-		onGridButtonClick(buttonId: ButtonId): void {
+		onDisplayClick() {
 			dispatch(
-				CalcActionCreators.pushButton(buttonId)
+				CalcActionCreators.toggleMenu(),
+			);
+		},
+		onMenuItemClick(itemId: string) {
+			dispatch(
+				CalcActionCreators.selectMenu(itemId),
+			);
+		},
+		onGridButtonClick(buttonId: ButtonId) {
+			dispatch(
+				CalcActionCreators.pushButton(buttonId),
 			);
 		},
 	};

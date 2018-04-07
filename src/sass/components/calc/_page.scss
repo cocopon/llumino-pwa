@@ -27,6 +27,12 @@ html.#{$prefix} {
 		flex-grow: 1;
 		position: relative;
 	}
+	&_menuLayout {
+		bottom: 1vh;
+		left: 0;
+		position: absolute;
+		right: 0;
+	}
 	&_gridLayout {
 		margin-bottom: env(safe-area-inset-bottom);
 	}

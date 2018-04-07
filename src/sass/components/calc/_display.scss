@@ -20,6 +20,7 @@ $prefix: 'calc';
 }
 
 .#{$prefix}-display {
+	-webkit-tap-highlight-color: transparent;
 	align-items: center;
 	display: flex;
 	position: absolute;

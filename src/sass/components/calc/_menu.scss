@@ -1,0 +1,78 @@
+$prefix: 'calc';
+
+@keyframes #{$prefix}-menuItem-show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes #{$prefix}-menuItem-hide {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.#{$prefix}-menu {
+	display: flex;
+	justify-content: space-between;
+
+	&#{&}-show {
+		.#{$prefix}-menuItem {
+			animation-duration: 0.2s;
+			animation-name: #{$prefix}-menuItem-show;
+			animation-timing-function: ease-out;
+
+			@for $i from 1 through 4 {
+				&:nth-child(#{$i}) {
+					animation-duration: 0.2s + $i * 0.1s;
+				}
+			}
+		}
+	}
+	&#{&}-hide {
+		.#{$prefix}-menuItem {
+			animation-duration: 0.2s;
+			animation-name: #{$prefix}-menuItem-hide;
+			animation-timing-function: ease-out;
+		}
+	}
+}
+.#{$prefix}-menuItem {
+	animation-fill-mode: forwards;
+	flex-basis: 25%;
+	height: 4vh;
+	position: relative;
+	opacity: 0;
+	white-space: nowrap;
+
+	&_innerLayout {
+		bottom: 0;
+		left: 0.5vh;
+		position: absolute;
+		right: 0.5vh;
+		top: 0;
+	}
+	&_button {
+		background-color: #b7b7b7;
+		box-shadow: 0 0 2vw rgba(#b7b7b7, 0.5);
+		color: black;
+		display: block;
+		font-size: 3vw;
+		letter-spacing: 0.1em;
+		line-height: 4vh;
+		text-align: center;
+		text-transform: uppercase;
+		width: 100%;
+
+		&:active {
+			background-color: white;
+		}
+	}
+}

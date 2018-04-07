@@ -151,7 +151,7 @@ export default class ButtonGrid extends React.Component<Props> {
 		}
 	}
 
-	onDocumentKeyDown_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
+	onDocumentKeyDown_(e: KeyboardEvent) {
 		const buttonId = ButtonIdUtil.fromKey(e.key, e.keyCode);
 		if (buttonId) {
 			const index = BUTTON_IDS.indexOf(buttonId);
@@ -159,7 +159,7 @@ export default class ButtonGrid extends React.Component<Props> {
 		}
 	}
 
-	onDocumentKeyUp_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
+	onDocumentKeyUp_(e: KeyboardEvent) {
 		const buttonId = ButtonIdUtil.fromKey(e.key, e.keyCode);
 		if (buttonId) {
 			this.handleButtonClick_(buttonId);
