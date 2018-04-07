@@ -3,6 +3,7 @@
 import * as ReduxActions from 'redux-actions';
 
 import FlowUtil from '../misc/flow-util';
+import Theme from '../model/theme';
 
 import type {
 	CommonChangePageAction,
@@ -11,10 +12,12 @@ import type {PageId} from '../model/page-id';
 	
 export type CommonState = {
 	pageId: PageId,
+	theme: Theme,
 };
 
 const INITIAL_STATE: CommonState = {
 	pageId: 'calc',
+	theme: Theme.createDefault(),
 };
 
 export default ReduxActions.handleActions({
