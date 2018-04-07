@@ -43,6 +43,10 @@ class ShowingAnswerState extends State {
 			const nextState = new InputtingOperatorState(this.calc_);
 			return nextState.pushButton(buttonId);
 		}
+		if (buttonType === 'delete') {
+			// Do nothing
+			return this;
+		}
 		if (buttonType === 'clear') {
 			this.calc_.clear({
 				answer: true,
@@ -92,8 +96,8 @@ class InputtingDigitsState extends State {
 		if (buttonType === 'delete') {
 			if (this.calc_.inputBuffers_.length > 0) {
 				this.calc_.inputBuffers_.pop();
-				return this;
 			}
+			return this;
 		}
 
 		if (buttonType === 'clear') {
@@ -132,6 +136,10 @@ class InputtingOperatorState extends State {
 		}
 		if (buttonType === 'operator') {
 			this.calc_.operatorBuffer_ = (buttonId: any);
+			return this;
+		}
+		if (buttonType === 'delete') {
+			// Do nothing
 			return this;
 		}
 		if (buttonType === 'clear') {

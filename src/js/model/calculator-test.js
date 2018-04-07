@@ -73,7 +73,18 @@ describe('Calculator', () => {
 		);
 	});
 
-	it('should delete a last inputt digit', () => {
+	it('should do nothing for initial deletion', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'bs',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			0,
+		);
+	});
+
+	it('should delete a last input digit', () => {
 		const calc = new Calculator();
 		pushButtons(calc, [
 			'3', '.', '1', '4', 'bs',
@@ -83,6 +94,25 @@ describe('Calculator', () => {
 			calc.answer,
 			3.1,
 		);
+	});
+
+	it('should do nothing for over-deletion', () => {
+		Assert.doesNotThrow(() => {
+			const calc = new Calculator();
+			pushButtons(calc, [
+				'4', '2', 'bs', 'bs', 'bs',
+			]);
+		});
+	});
+
+	it('should do nothing for deleting buffered operator', () => {
+		Assert.doesNotThrow(() => {
+			const calc = new Calculator();
+			pushButtons(calc, [
+				'1', '2', '3', '4', '+',
+				'bs',
+			]);
+		});
 	});
 
 	it('should input decimal number directly', () => {
