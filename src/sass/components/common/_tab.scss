@@ -1,8 +1,25 @@
 $prefix: 'common';
 
 .#{$prefix}-tab {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+
 	&_itemsLayout {
 		display: flex;
+	}
+	&_pageLayout {
+		-webkit-overflow-scrolling: touch;
+		overflow-scrolling: touch;
+
+		bottom: 0;
+		left: 0;
+		overflow-y: scroll;
+		position: absolute;
+		right: 0;
+		top: $common-tab-item-height;
 	}
 }
 .#{$prefix}-tabItem {
@@ -23,7 +40,7 @@ $prefix: 'common';
 
 	&_button {
 		display: block;
-		line-height: 10vh;
+		line-height: $common-tab-item-height;
 		opacity: 0.7;
 		text-align: center;
 		width: 100%;

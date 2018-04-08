@@ -1,8 +1,8 @@
 $prefix: 'common';
 
 .#{$prefix}-appBar {
-	height: 10vh;
-	line-height: 10vh;
+	height: $common-app-bar-height;
+	line-height: $common-app-bar-height;
 	position: relative;
 
 	&_title {

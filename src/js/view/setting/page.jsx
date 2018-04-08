@@ -61,22 +61,26 @@ class SettingPage extends React.Component<Props, State> {
 
 		return (
 			<div className={className(modifierMap)}>
-				<AppBar title="Settings">
-					<button onClick={this.props.onCloseButtonClick}>
-						Close
-					</button>
-				</AppBar>
-				<Tab.Root
-					activeItemId={pageState.tabId}
-					items={[
-						{id: 'theme', title: 'Themes'},
-						{id: 'about', title: 'About'},
-					]}
-					onItemClick={this.props.onTabItemClick}
-				>
-					<ThemePage/>
-					<AboutPage/>
-				</Tab.Root>
+				<div className={className('appBarLayout')}>
+					<AppBar title="Settings">
+						<button onClick={this.props.onCloseButtonClick}>
+							Close
+						</button>
+					</AppBar>
+				</div>
+				<div className={className('tabLayout')}>
+					<Tab.Root
+						activeItemId={pageState.tabId}
+						items={[
+							{id: 'theme', title: 'Themes'},
+							{id: 'about', title: 'About'},
+						]}
+						onItemClick={this.props.onTabItemClick}
+					>
+						<ThemePage/>
+						<AboutPage/>
+					</Tab.Root>
+				</div>
 			</div>
 		);
 	}

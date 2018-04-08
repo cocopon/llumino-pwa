@@ -38,4 +38,14 @@ $prefix: 'setting';
 		animation-name: #{$prefix}-page-show;
 		animation-timing-function: ease-in-out;
 	}
+
+	&_appBarLayout {
+	}
+	&_tabLayout {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: $common-app-bar-height;
+	}
 }

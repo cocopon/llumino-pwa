@@ -7,6 +7,7 @@ import Theme from '../model/theme';
 
 import type {
 	CommonChangePageAction,
+	CommonChangeThemeAction,
 } from '../actions/common-actions';
 import type {PageId} from '../model/page-id';
 	
@@ -24,6 +25,12 @@ export default ReduxActions.handleActions({
 	COMMON_CHANGE_PAGE(state, action: CommonChangePageAction) {
 		return FlowUtil.updateState(state, {
 			pageId: action.pageId,
+		});
+	},
+
+	COMMON_CHANGE_THEME(state, action: CommonChangeThemeAction) {
+		return FlowUtil.updateState(state, {
+			theme: action.theme,
 		});
 	},
 }, INITIAL_STATE);

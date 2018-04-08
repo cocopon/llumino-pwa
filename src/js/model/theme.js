@@ -8,6 +8,13 @@ type ThemeTarget = {
 	value?: (color: string) => string,
 };
 
+type ThemeObject = {
+	background: string,
+	foreground: string,
+	id: string,
+	name: string,
+};
+
 function createRule(selector: string, property: string, value: string): string {
 	return `${selector} {${property}: ${value};}`;
 }
@@ -32,6 +39,13 @@ const FG_TARGETS: ThemeTarget[] = [
 		value(col: string): string {
 			const scol = Color(col).alpha(0.5);
 			return `0 0 2vw ${scol.string()}`;
+		},
+	},
+	{
+		selector: '.setting-themeListItem_preview',
+		property: 'border-color',
+		value(col: string): string {
+			return Color(col).alpha(0.1).string();
 		},
 	},
 ];
@@ -68,12 +82,21 @@ export default class Theme {
 		return rules.join(' ');
 	}
 
-	static createDefault(): Theme {
+	static fromObject(obj: ThemeObject): Theme {
 		const theme = new Theme();
-		theme.backgroundColor = '#000000';
-		theme.foregroundColor = '#b7b7b7';
-		theme.id = 'default';
-		theme.name = 'Default';
+		theme.backgroundColor = obj.background;
+		theme.foregroundColor = obj.foreground;
+		theme.id = obj.id;
+		theme.name = obj.name;
 		return theme;
+	}
+
+	static createDefault(): Theme {
+		return Theme.fromObject({
+			background: '#000000',
+			foreground: '#b7b7b7',
+			id: 'default',
+			name: 'Default',
+		});
 	}
 }

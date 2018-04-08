@@ -1,0 +1,29 @@
+$prefix: 'setting';
+
+.#{$prefix}-themeList {
+	padding: 4vw;
+}
+.#{$prefix}-themeListItem {
+	display: inline-block;
+	width: 50%;
+
+	&_preview {
+		border: rgba(white, 0.1) solid 2px;
+		height: 0;
+		padding-bottom: 100%;
+	}
+	&_button {
+		display: block;
+		padding: 4vw;
+		width: 100%;
+
+		&:active {
+			background-color: rgba(white, 0.1);
+		}
+	}
+	&_title {
+		font-size: 0.9rem;
+		margin-top: 2vh;
+		text-align: center;
+	}
+}
