@@ -4,6 +4,7 @@ html.#{$prefix} {
 	&, & body {
 		height: 100%;
 		left: 0;
+		overflow: hidden;
 		position: fixed;
 		top: 0;
 		width: 100%;

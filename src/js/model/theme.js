@@ -36,7 +36,7 @@ const BG_TARGETS: ThemeTarget[] = [
 		selector: '.common-tab_itemsLayout',
 		property: 'box-shadow',
 		value(col: string): string {
-			return `0 1vh 2vh ${Color(col).darken(0.3).alpha(0.3).string()}`;
+			return `0 0.3em 0.6em ${Color(col).darken(0.5).alpha(0.3).string()}`;
 		},
 	},
 	{selector: '.setting-page'},
@@ -50,7 +50,7 @@ const FG_TARGETS: ThemeTarget[] = [
 		selector: '.calc-menuItem_button',
 		property: 'box-shadow',
 		value(col: string): string {
-			return `0 0 2vw ${Color(col).alpha(0.5).string()}`;
+			return `0 0 1em ${Color(col).alpha(0.5).string()}`;
 		},
 	},
 	{selector: '.common-tabItem:before', property: 'background-color'},
@@ -77,7 +77,7 @@ const ENERGY_TARGETS: ThemeTarget[] = [
 		selector: '.calc-buttonGrid_buttonEnergy',
 		property: 'box-shadow',
 		value(col: string): string {
-			return `0 0 2vw ${Color(col).string()}`;
+			return `0 0 0.5em ${Color(col).string()}`;
 		},
 	},
 ];
@@ -138,7 +138,7 @@ export default class Theme {
 	static defaultObject(): ThemeObject {
 		return {
 			background: '#000000',
-			energy: '#f0f',
+			energy: '#ff00ff',
 			foreground: '#b7b7b7',
 			id: 'default',
 			name: 'Default',
