@@ -3,6 +3,7 @@ $prefix: 'setting';
 @keyframes #{$prefix}-page-show {
 	0% {
 		transform: translateY(100vh);
+		visibility: visible;
 	}
 	100% {
 		transform: none;
@@ -15,6 +16,7 @@ $prefix: 'setting';
 	}
 	100% {
 		transform: translateY(100vh);
+		visibility: hidden;
 	}
 }
 

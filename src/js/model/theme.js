@@ -29,6 +29,8 @@ const BG_TARGETS: ThemeTarget[] = [
 		selector: '.calc-menuItem_button',
 		property: 'color',
 	},
+	{selector: '.common-appBar'},
+	{selector: '.common-tab_itemsLayout'},
 	{
 		selector: '.common-tab_itemsLayout',
 		property: 'box-shadow',

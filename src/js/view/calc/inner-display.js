@@ -107,6 +107,7 @@ export default class InnerDisplay {
 	needsRebuildingWidthMap_: boolean = true;
 	outdatedDisplayDigits_: DisplayDigit[] = [];
 	placeholderElem_: HTMLElement;
+	text_: string = '';
 
 	constructor() {
 		const elem = document.createElement('div');
@@ -121,13 +122,16 @@ export default class InnerDisplay {
 		this.placeholderElem_ = phElem;
 
 		window.addEventListener(
+			'orientationchange',
+			this.onWindowOrientationChange_.bind(this),
+		);
+		window.addEventListener(
 			'resize',
 			this.onWindowResize_.bind(this),
 		);
 	}
 
 	buildDisplayDigitsWidthMap_() {
-
 		this.ddWidthMap_ = {};
 		AVAILABLE_DIGITS.forEach((text) => {
 			this.placeholderElem_.textContent = text;
@@ -136,6 +140,12 @@ export default class InnerDisplay {
 	}
 
 	updateText(text: string) {
+		const shouldUpdate = this.needsRebuildingWidthMap_ ||
+			(this.text_ !== text);
+		if (!shouldUpdate) {
+			return;
+		}
+
 		if (this.needsRebuildingWidthMap_) {
 			this.buildDisplayDigitsWidthMap_();
 		}
@@ -159,6 +169,9 @@ export default class InnerDisplay {
 
 			x += w;
 		});
+
+		console.log(displayWidth);
+		console.log(this.ddWidthMap_);
 
 		// Layout new digits
 		const prevDigitElems = this.displayDigits_.map((dd) => {
@@ -228,13 +241,24 @@ export default class InnerDisplay {
 				element: nextDigitElems[index],
 			};
 		});
+
+		this.text_ = text;
 	}
 
 	get element(): HTMLElement {
 		return this.elem_;
 	}
 
+	onWindowOrientationChange_() {
+		// Delay resizing because browser cannot compute the display element size correctly
+		setTimeout(() => {
+			this.needsRebuildingWidthMap_ = true;
+			this.updateText(this.text_);
+		}, 300);
+	}
+
 	onWindowResize_() {
 		this.needsRebuildingWidthMap_ = true;
+		this.updateText(this.text_);
 	}
 }
