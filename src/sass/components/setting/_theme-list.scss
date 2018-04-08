@@ -7,10 +7,22 @@ $prefix: 'setting';
 	display: inline-block;
 	width: 50%;
 
-	&_preview {
-		border: rgba(white, 0.1) solid 2px;
+	&_previewLayout {
 		height: 0;
 		padding-bottom: 100%;
+		position: relative;
+	}
+	&_preview {
+		border: rgba(white, 0.1) solid 2px;
+		display: table;
+		height: 100%;
+		position: absolute;
+		text-align: center;
+		width: 100%;
+	}
+	&_previewText {
+		display: table-cell;
+		vertical-align: middle;
 	}
 	&_button {
 		display: block;
@@ -20,10 +32,5 @@ $prefix: 'setting';
 		&:active {
 			background-color: rgba(white, 0.1);
 		}
-	}
-	&_title {
-		font-size: 0.9rem;
-		margin-top: 2vh;
-		text-align: center;
 	}
 }

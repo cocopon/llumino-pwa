@@ -34,15 +34,22 @@ export default class ThemeList extends React.Component<Props> {
 						data-id={theme.id}
 						onClick={this.onItemClick_}
 					>
-						<div
-							className={itemClassName('preview')}
-							style={{
-								backgroundColor: theme.backgroundColor,
-							}}
-						>
-						</div>
-						<div className={itemClassName('title')}>
-							{theme.name}
+						<div className={itemClassName('previewLayout')}>
+							<div
+								className={itemClassName('preview')}
+								style={{
+									backgroundColor: theme.backgroundColor,
+								}}
+							>
+								<div
+									className={itemClassName('previewText')}
+									style={{
+										color: theme.foregroundColor,
+									}}
+								>
+									{theme.name}
+								</div>
+							</div>
 						</div>
 					</button>
 				</div>
