@@ -7,6 +7,12 @@ import ClassName from '../../misc/class-name';
 const className = ClassName('calc', 'menu');
 const itemClassName = ClassName('calc', 'menuItem');
 
+type ItemProps = {
+	disabled?: boolean,
+	id: string,
+	title: string,
+};
+
 type Props = {
 	expanded: boolean,
 	onItemClick: (itemId: string) => void,
@@ -43,23 +49,24 @@ export default class Menu extends React.Component<Props, State> {
 
 	render() {
 		const itemElems = [
-			'copy',
-			'paste',
-			'history',
-			'settings',
-		].map((item) => {
+			{id: 'copy', title: 'n/a', disabled: true},
+			{id: 'paste', title: 'n/a', disabled: true},
+			{id: 'history', title: 'n/a', disabled: true},
+			{id: 'settings', title: 'Settings'},
+		].map((item: ItemProps) => {
 			return (
 				<div
 					className={itemClassName()}
-					key={item}
+					key={item.id}
 				>
 					<div className={itemClassName('innerLayout')}>
 						<button
 							className={itemClassName('button')}
-							data-id={item}
+							disabled={!!item.disabled}
+							data-id={item.id}
 							onClick={this.onItemClick_}
 						>
-							{item}
+							{item.title}
 						</button>
 					</div>
 				</div>
