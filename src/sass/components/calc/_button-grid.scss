@@ -37,8 +37,7 @@ $prefix: 'calc';
 		}
 
 		&#{&}-inefficient {
-			&:active,
-			&#{&}-active {
+			&:active {
 				background-color: rgba(#f0f, 0.2);
 			}
 		}

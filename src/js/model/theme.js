@@ -10,6 +10,7 @@ type ThemeTarget = {
 
 type ThemeObject = {
 	background: string,
+	energy: string,
 	foreground: string,
 	id: string,
 	name: string,
@@ -62,8 +63,28 @@ const FG_TARGETS: ThemeTarget[] = [
 	},
 ];
 
+const ENERGY_TARGETS: ThemeTarget[] = [
+	{selector: '.calc-buttonGrid_button:active'},
+	{selector: '.calc-buttonGrid_button.calc-buttonGrid_button-active'},
+	{
+		selector: '.calc-buttonGrid_button.calc-buttonGrid_button-inefficient:active',
+		value(col: string): string {
+			return Color(col).alpha(0.2).string();
+		},
+	},
+	{selector: '.calc-buttonGrid_buttonEnergy'},
+	{
+		selector: '.calc-buttonGrid_buttonEnergy',
+		property: 'box-shadow',
+		value(col: string): string {
+			return `0 0 2vw ${Color(col).string()}`;
+		},
+	},
+];
+
 export default class Theme {
 	backgroundColor: string;
+	energyColor: string;
 	foregroundColor: string;
 	id: string;
 	name: string;
@@ -91,24 +112,36 @@ export default class Theme {
 			);
 		}));
 
+		rules.push(...ENERGY_TARGETS.map((target: ThemeTarget): string => {
+			return createRule(
+				target.selector,
+				target.property || 'background-color',
+				target.value ?
+					target.value(this.energyColor) :
+					this.energyColor,
+			);
+		}));
+
 		return rules.join(' ');
 	}
 
 	static fromObject(obj: ThemeObject): Theme {
 		const theme = new Theme();
 		theme.backgroundColor = obj.background;
+		theme.energyColor = obj.energy;
 		theme.foregroundColor = obj.foreground;
 		theme.id = obj.id;
 		theme.name = obj.name;
 		return theme;
 	}
 
-	static createDefault(): Theme {
-		return Theme.fromObject({
+	static defaultObject(): ThemeObject {
+		return {
 			background: '#000000',
+			energy: '#f0f',
 			foreground: '#b7b7b7',
 			id: 'default',
 			name: 'Default',
-		});
+		};
 	}
 }

@@ -18,7 +18,9 @@ export type CommonState = {
 
 const INITIAL_STATE: CommonState = {
 	pageId: 'calc',
-	theme: Theme.createDefault(),
+	theme: Theme.fromObject(
+		Theme.defaultObject(),
+	),
 };
 
 export default ReduxActions.handleActions({
