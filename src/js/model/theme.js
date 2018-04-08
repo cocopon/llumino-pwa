@@ -25,6 +25,7 @@ const FG_TARGETS: ThemeTarget[] = [
 	{selector: 'html'},
 	{selector: '.calc-buttonGrid_buttonText'},
 	{selector: '.calc-menuItem_button', property: 'background-color'},
+	{selector: '.common-tabItem:before', property: 'background-color'},
 	{
 		selector: '.calc-menuItem_button',
 		property: 'box-shadow',

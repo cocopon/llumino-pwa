@@ -6,15 +6,20 @@ import * as Redux from 'redux';
 
 import * as SettingActionCreators from '../../action-creators/setting-action-creators';
 import ClassName from '../../misc/class-name';
+import AppBar from '../common/app-bar';
 import List from '../common/list';
-import NavigationBar from '../common/navigation-bar';
+import * as Tab from '../common/tab-root';
+import AboutPage from './about-page';
+import ThemePage from './theme-page';
 
 import type {RootState} from '../../reducer/root-reducer';
+import type {SettingState} from '../../reducer/setting-reducer';
 
 type Props = {
 	onCloseButtonClick: () => void,
-	onListItemClick: (itemId: string) => void,
+	onTabItemClick: (itemId: string) => void,
 	visible: boolean,
+	pageState: SettingState,
 };
 
 type State = {
@@ -48,6 +53,7 @@ class SettingPage extends React.Component<Props, State> {
 	}
 
 	render() {
+		const {pageState} = this.props;
 		const modifierMap: {[string]: boolean} = {};
 		if (this.state.action) {
 			modifierMap[this.state.action] = true;
@@ -55,23 +61,22 @@ class SettingPage extends React.Component<Props, State> {
 
 		return (
 			<div className={className(modifierMap)}>
-				<NavigationBar
-					title="Settings"
-				>
-					<button
-						onClick={this.props.onCloseButtonClick}
-					>
+				<AppBar title="Settings">
+					<button onClick={this.props.onCloseButtonClick}>
 						Close
 					</button>
-				</NavigationBar>
-				<List
+				</AppBar>
+				<Tab.Root
+					activeItemId={pageState.tabId}
 					items={[
 						{id: 'theme', title: 'Themes'},
-						{id: 'font', title: 'Fonts'},
+						{id: 'about', title: 'About'},
 					]}
-					onItemClick={this.props.onListItemClick}
+					onItemClick={this.props.onTabItemClick}
 				>
-				</List>
+					<ThemePage/>
+					<AboutPage/>
+				</Tab.Root>
 			</div>
 		);
 	}
@@ -79,6 +84,7 @@ class SettingPage extends React.Component<Props, State> {
 
 function mapStateToProps(state: RootState) {
 	return {
+		pageState: state.setting,
 	};
 }
 
@@ -89,9 +95,9 @@ function mapDispatchToProps(dispatch: Redux.Dispatch<*>) {
 				SettingActionCreators.closePage(),
 			);
 		},
-		onListItemClick(itemId: string) {
+		onTabItemClick(itemId: string) {
 			dispatch(
-				SettingActionCreators.showSubpage(itemId),
+				SettingActionCreators.changeTab(itemId),
 			);
 		},
 	};

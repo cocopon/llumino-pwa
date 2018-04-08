@@ -4,14 +4,14 @@ import * as React from 'react';
 
 import ClassName from '../../misc/class-name';
 
-const className = ClassName('common', 'navigationBar');
+const className = ClassName('common', 'appBar');
 
 type Props = {
 	children?: React.Node,
 	title: string,
 };
 
-export default class NavigationBar extends React.Component<Props> {
+export default class AppBar extends React.Component<Props> {
 	render() {
 		return (
 			<div className={className()}>
