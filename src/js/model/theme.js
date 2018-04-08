@@ -21,26 +21,36 @@ function createRule(selector: string, property: string, value: string): string {
 
 const BG_TARGETS: ThemeTarget[] = [
 	{selector: 'html'},
-	{selector: '.setting-page'},
 	{
 		selector: '.calc-menuItem_button',
 		property: 'color',
 	},
+	{
+		selector: '.calc-menuItem_button',
+		property: 'color',
+	},
+	{
+		selector: '.common-tab_itemsLayout',
+		property: 'box-shadow',
+		value(col: string): string {
+			return `0 1vh 2vh ${Color(col).darken(0.3).alpha(0.3).string()}`;
+		},
+	},
+	{selector: '.setting-page'},
 ];
 
 const FG_TARGETS: ThemeTarget[] = [
 	{selector: 'html'},
 	{selector: '.calc-buttonGrid_buttonText'},
 	{selector: '.calc-menuItem_button', property: 'background-color'},
-	{selector: '.common-tabItem:before', property: 'background-color'},
 	{
 		selector: '.calc-menuItem_button',
 		property: 'box-shadow',
 		value(col: string): string {
-			const scol = Color(col).alpha(0.5);
-			return `0 0 2vw ${scol.string()}`;
+			return `0 0 2vw ${Color(col).alpha(0.5).string()}`;
 		},
 	},
+	{selector: '.common-tabItem:before', property: 'background-color'},
 	{
 		selector: '.setting-themeListItem_preview',
 		property: 'border-color',

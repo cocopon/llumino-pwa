@@ -4,6 +4,7 @@ $prefix: 'common';
 	height: $common-app-bar-height;
 	line-height: $common-app-bar-height;
 	position: relative;
+	z-index: $z-index-app-bar;
 
 	&_title {
 		text-align: center;
