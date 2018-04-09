@@ -1,0 +1,12 @@
+$prefix: 'setting';
+
+.#{$prefix}-aboutPage {
+	padding: 8vw;
+
+	&_title {
+	}
+	&_detail {
+		opacity: 0.5;
+		line-height: 1.6;
+	}
+}
