@@ -1,22 +1,17 @@
 // @flow
 
 import ButtonIdUtil from '../button-id';
-import InputtingDigitsState from './inputting-digits-state';
-import InputtingOperatorState from './inputting-operator-state';
+import CalculatorError from './error';
+import InputDigitsState from './input-digits-state';
+import ShowAnswerState from './show-answer-state';
 import State from './state';
 
 import type {ButtonId} from '../button-id';
 import type {ButtonType} from '../button-type';
 
-export default class ShowingAnswerState extends State {
-	get displayNumber(): number {
-		return this.calc_.answer;
-	}
-
+export default class InputOperatorState extends State {
 	get inefficientButtons(): ButtonId[] {
 		return [
-			'%',
-			'=',
 			'bs',
 		];
 	}
@@ -26,18 +21,18 @@ export default class ShowingAnswerState extends State {
 		const calc = this.calc_;
 
 		if (buttonType === 'digit') {
-			const nextState = new InputtingDigitsState(calc);
+			const nextState = new InputDigitsState(calc);
 			return nextState.pushButton(buttonId);
 		}
 
 		if (buttonType === 'operator') {
-			const nextState = new InputtingOperatorState(calc);
-			return nextState.pushButton(buttonId);
+			calc.operatorBuffer_ = (buttonId: any);
+			return this;
 		}
 
 		if (buttonType === 'percent') {
-			// Do nothing
-			return this;
+			calc.answer = calc.answer * 0.01;
+			return new ShowAnswerState(calc);
 		}
 
 		if (buttonType === 'delete') {
@@ -48,20 +43,26 @@ export default class ShowingAnswerState extends State {
 		if (buttonType === 'clear') {
 			calc.clear({
 				answer: true,
+				inputBuffers: true,
+				operatorBuffer: true,
 			});
-			return this;
+			return new ShowAnswerState(calc);
 		}
 
 		if (buttonType === 'invert') {
 			calc.answer = -calc.answer;
-			return this;
+			return new ShowAnswerState(calc);
 		}
 
 		if (buttonType === 'equal') {
-			// Do nothing
-			return this;
+			calc.clear({
+				inputBuffers: true,
+				operatorBuffer: true,
+			});
+			return new ShowAnswerState(calc);
 		}
 
-		throw new Error('not implemented');
+		throw new CalculatorError('notImplemented');
 	}
 }
+

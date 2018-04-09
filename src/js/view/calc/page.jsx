@@ -40,8 +40,8 @@ class CalcPage extends React.Component<Props> {
 				<div className={className('innerLayout')}>
 					<div className={className('displayLayout')}>
 						<Display
+							calculator={pageState.calculator}
 							dimmed={pageState.menuExpanded}
-							displayNumber={pageState.calculator.displayNumber}
 							onClick={this.onDisplayClick_}
 							shakeCount={pageState.shakeCount}
 						/>

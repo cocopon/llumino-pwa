@@ -4,13 +4,13 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import NumberFormatter from '../../misc/number-formatter';
-
 import ClassName from '../../misc/class-name';
+import Calculator from '../../model/calculator/calculator';
 import InnerDisplay from './inner-display';
 
 type Props = {
 	dimmed: boolean,
-	displayNumber: number,
+	calculator: Calculator,
 	onClick: () => void,
 	shakeCount: number,
 };
@@ -59,7 +59,11 @@ export default class Display extends React.Component<Props, State> {
 			innerElem.appendChild(innerDisplay.element);
 			this.innerDisplay_ = innerDisplay;
 		}
-		const text = NumberFormatter.format(this.props.displayNumber);
+
+		const calc = this.props.calculator;
+		const text = (calc.error) ?
+			'Error' :
+			NumberFormatter.format(calc.displayNumber);
 		this.innerDisplay_.updateText(text);
 
 		// Handle shake

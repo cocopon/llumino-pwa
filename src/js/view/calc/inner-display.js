@@ -97,7 +97,7 @@ const AVAILABLE_DIGITS: string[] = [
 	',', '.',
 	'+', '-',
 	'N', 'a',
-	'∞',
+	'E', 'o', 'r',
 ];
 
 export default class InnerDisplay {
@@ -169,9 +169,6 @@ export default class InnerDisplay {
 
 			x += w;
 		});
-
-		console.log(displayWidth);
-		console.log(this.ddWidthMap_);
 
 		// Layout new digits
 		const prevDigitElems = this.displayDigits_.map((dd) => {

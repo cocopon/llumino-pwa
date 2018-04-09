@@ -1,14 +1,16 @@
 // @flow
 
 import ButtonIdUtil from '../button-id';
-import InputtingOperatorState from './inputting-operator-state';
-import ShowingAnswerState from './showing-answer.state';
+import CalculatorError from './error';
+import InputOperatorState from './input-operator-state';
+import ShowAnswerState from './show-answer-state';
+import ShowErrorState from './show-error-state';
 import State from './state';
 
 import type {ButtonId, OperatorButtonId} from '../button-id';
 import type {ButtonType} from '../button-type';
 
-export default class InputtingDigitsState extends State {
+export default class InputDigitsState extends State {
 	get displayNumber(): number {
 		return ButtonIdUtil.buildNumber(this.calc_.inputBuffers_);
 	}
@@ -26,6 +28,12 @@ export default class InputtingDigitsState extends State {
 			);
 		}
 		return buttonIds;
+	}
+
+	isExceededMaxDigits_(answer: number): boolean {
+		const maxDigits = this.calc_.maxInputBufferCount_;
+		return answer >= Math.pow(10, maxDigits) ||
+			answer <= -Math.pow(10, maxDigits);
 	}
 
 	operate_() {
@@ -50,10 +58,15 @@ export default class InputtingDigitsState extends State {
 		};
 		const operator = OPERATORS[operatorId];
 		if (!operator) {
-			throw new Error('invalid operator');
+			throw new CalculatorError('invalidOperator');
 		}
 
-		calc.answer = operator(n1, n2);
+		const answer = operator(n1, n2);
+		if (this.isExceededMaxDigits_(answer)) {
+			throw new CalculatorError('exceededMaximumDigits');
+		}
+
+		calc.answer = answer;
 	}
 
 	operatePercent_() {
@@ -81,7 +94,11 @@ export default class InputtingDigitsState extends State {
 			throw new Error('invalid operator');
 		}
 
-		calc.answer = operator(n1, n2);
+		const answer = operator(n1, n2);
+		if (this.isExceededMaxDigits_(answer)) {
+			throw new CalculatorError('exceededMaximumDigits');
+		}
+		calc.answer = answer;
 	}
 
 	pushButton(buttonId: ButtonId): State {
@@ -108,13 +125,13 @@ export default class InputtingDigitsState extends State {
 
 		if (buttonType === 'operator') {
 			this.operate_();
-			const nextState = new InputtingOperatorState(calc);
+			const nextState = new InputOperatorState(calc);
 			return nextState.pushButton(buttonId);
 		}
 
 		if (buttonType === 'percent') {
 			this.operatePercent_();
-			return new ShowingAnswerState(calc);
+			return new ShowAnswerState(calc);
 		}
 
 		if (buttonType === 'delete') {
@@ -127,7 +144,7 @@ export default class InputtingDigitsState extends State {
 		if (buttonType === 'invert') {
 			this.operate_();
 			calc.answer = -calc.answer;
-			return new ShowingAnswerState(calc);
+			return new ShowAnswerState(calc);
 		}
 
 		if (buttonType === 'clear') {
@@ -135,7 +152,7 @@ export default class InputtingDigitsState extends State {
 				calc.clear({
 					operatorBuffer: true,
 				});
-				const nextState = new ShowingAnswerState(calc);
+				const nextState = new ShowAnswerState(calc);
 				return nextState.pushButton(buttonId);
 			}
 			calc.clear({
@@ -146,9 +163,9 @@ export default class InputtingDigitsState extends State {
 
 		if (buttonType === 'equal') {
 			this.operate_();
-			return new ShowingAnswerState(calc);
+			return new ShowAnswerState(calc);
 		}
 
-		throw new Error('not implemented');
+		throw new CalculatorError('notImplemented');
 	}
 }

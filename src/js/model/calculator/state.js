@@ -12,7 +12,7 @@ export default class State {
 	}
 
 	get displayNumber(): number {
-		throw new Error('not implemented');
+		return this.calc_.answer;
 	}
 
 	get inefficientButtons(): ButtonId[] {

@@ -1,20 +1,19 @@
 // @flow
 
 import ButtonIdUtil from '../button-id';
-import InputtingDigitsState from './inputting-digits-state';
-import ShowingAnswerState from './showing-answer.state';
+import CalculatorError from './error';
+import InputDigitsState from './input-digits-state';
+import InputOperatorState from './input-operator-state';
 import State from './state';
 
 import type {ButtonId} from '../button-id';
 import type {ButtonType} from '../button-type';
 
-export default class InputtingOperatorState extends State {
-	get displayNumber(): number {
-		return this.calc_.answer_;
-	}
-
+export default class ShowAnswerState extends State {
 	get inefficientButtons(): ButtonId[] {
 		return [
+			'%',
+			'=',
 			'bs',
 		];
 	}
@@ -24,18 +23,18 @@ export default class InputtingOperatorState extends State {
 		const calc = this.calc_;
 
 		if (buttonType === 'digit') {
-			const nextState = new InputtingDigitsState(calc);
+			const nextState = new InputDigitsState(calc);
 			return nextState.pushButton(buttonId);
 		}
 
 		if (buttonType === 'operator') {
-			calc.operatorBuffer_ = (buttonId: any);
-			return this;
+			const nextState = new InputOperatorState(calc);
+			return nextState.pushButton(buttonId);
 		}
 
 		if (buttonType === 'percent') {
-			calc.answer = calc.answer * 0.01;
-			return new ShowingAnswerState(calc);
+			// Do nothing
+			return this;
 		}
 
 		if (buttonType === 'delete') {
@@ -46,26 +45,21 @@ export default class InputtingOperatorState extends State {
 		if (buttonType === 'clear') {
 			calc.clear({
 				answer: true,
-				inputBuffers: true,
-				operatorBuffer: true,
+				error: true,
 			});
-			return new ShowingAnswerState(calc);
+			return this;
 		}
 
 		if (buttonType === 'invert') {
 			calc.answer = -calc.answer;
-			return new ShowingAnswerState(calc);
+			return this;
 		}
 
 		if (buttonType === 'equal') {
-			calc.clear({
-				inputBuffers: true,
-				operatorBuffer: true,
-			});
-			return new ShowingAnswerState(calc);
+			// Do nothing
+			return this;
 		}
 
-		throw new Error('not implemented');
+		throw new CalculatorError('notImplemented');
 	}
 }
-
