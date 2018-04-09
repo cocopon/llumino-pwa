@@ -12,18 +12,19 @@ import type {ButtonId} from '../../model/button-id';
 
 const H_BUTTON_COUNT = 4;
 const BUTTON_IDS: ButtonId[] = [
-	'c', 'bs', '%', '/',
-	'7', '8',  '9', '*',
-	'4', '5',  '6', '-',
-	'1', '2',  '3', '+',
-	'0', '.',  '0', '=',
+	'c', 'bs', '%',   '/',
+	'7', '8',  '9',   '*',
+	'4', '5',  '6',   '-',
+	'1', '2',  '3',   '+',
+	'0', '.',  'inv', '=',
 ];
 const BUTTON_ID_TO_TEXT_MAP: {[ButtonId]: string} = {
+	'*': '×',
+	'-': '−',
+	'/': '÷',
 	'bs': 'BS',
 	'c': 'C',
-	'-': '−',
-	'*': '×',
-	'/': '÷',
+	'inv': '+/−',
 };
 
 type Props = {

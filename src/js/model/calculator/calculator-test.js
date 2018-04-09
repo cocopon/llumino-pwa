@@ -295,4 +295,42 @@ describe('Calculator', () => {
 			'with `/` operator',
 		);
 	});
+
+	it('should invert an answer', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', '2', '=', 'inv',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			-12,
+		);
+		pushButtons(calc, ['inv']);
+		Assert.strictEqual(
+			calc.answer,
+			12,
+		);
+	});
+
+	it('should invert an input', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'2', '4', 'inv',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			-24,
+		);
+	});
+
+	it('should invert an input with buffered operator', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'3', '6', '*', 'inv',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			-36,
+		);
+	});
 });

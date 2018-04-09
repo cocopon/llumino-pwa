@@ -23,14 +23,15 @@ export default class ShowingAnswerState extends State {
 
 	pushButton(buttonId: ButtonId): State {
 		const buttonType = ButtonIdUtil.getType(buttonId);
+		const calc = this.calc_;
 
 		if (buttonType === 'digit') {
-			const nextState = new InputtingDigitsState(this.calc_);
+			const nextState = new InputtingDigitsState(calc);
 			return nextState.pushButton(buttonId);
 		}
 
 		if (buttonType === 'operator') {
-			const nextState = new InputtingOperatorState(this.calc_);
+			const nextState = new InputtingOperatorState(calc);
 			return nextState.pushButton(buttonId);
 		}
 
@@ -45,9 +46,14 @@ export default class ShowingAnswerState extends State {
 		}
 
 		if (buttonType === 'clear') {
-			this.calc_.clear({
+			calc.clear({
 				answer: true,
 			});
+			return this;
+		}
+
+		if (buttonType === 'invert') {
+			calc.answer = -calc.answer;
 			return this;
 		}
 

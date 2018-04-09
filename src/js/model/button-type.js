@@ -1,8 +1,9 @@
 // @flow
 
-export type ButtonType = 'digit' |
-	'operator' |
-	'percent' |
-	'clear' |
+export type ButtonType = 'clear' |
 	'delete' |
-	'equal';
+	'digit' |
+	'equal' |
+	'invert' |
+	'operator' |
+	'percent';

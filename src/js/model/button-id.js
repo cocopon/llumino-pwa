@@ -23,6 +23,7 @@ export type ButtonId = NumberButtonId |
 	'%' |
 	'bs' |
 	'c' |
+	'inv' |
 	'.' |
 	'=';
 
@@ -52,6 +53,7 @@ const ButtonIdUtil = {
 			'=': 'equal',
 			'bs': 'delete',
 			'c': 'clear',
+			'inv': 'invert',
 		};
 		return MAP[buttonId] || null;
 	},

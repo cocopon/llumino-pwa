@@ -124,6 +124,12 @@ export default class InputtingDigitsState extends State {
 			return this;
 		}
 
+		if (buttonType === 'invert') {
+			this.operate_();
+			calc.answer = -calc.answer;
+			return new ShowingAnswerState(calc);
+		}
+
 		if (buttonType === 'clear') {
 			if (calc.inputBuffers_.length === 0) {
 				calc.clear({

@@ -34,7 +34,6 @@ export default class InputtingOperatorState extends State {
 		}
 
 		if (buttonType === 'percent') {
-			// Ignore operator
 			calc.answer = calc.answer * 0.01;
 			return new ShowingAnswerState(calc);
 		}
@@ -50,6 +49,11 @@ export default class InputtingOperatorState extends State {
 				inputBuffers: true,
 				operatorBuffer: true,
 			});
+			return new ShowingAnswerState(calc);
+		}
+
+		if (buttonType === 'invert') {
+			calc.answer = -calc.answer;
 			return new ShowingAnswerState(calc);
 		}
 
