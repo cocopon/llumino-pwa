@@ -2,7 +2,9 @@
 
 const NumberFormatter = {
 	format(num: number): string {
-		return num.toLocaleString();
+		return num.toLocaleString(undefined, {
+			maximumSignificantDigits: 10,
+		});
 	},
 };
 
