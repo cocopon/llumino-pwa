@@ -6,10 +6,18 @@
 	<meta name="apple-mobile-web-app-title" content="Llumino PWA">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<title>Llumino</title>
-	<link rel="stylesheet" href="/assets/css/bundle.css">
+	<link rel="stylesheet" href="assets/css/bundle.css">
 </head>
 <body>
 	<div id="appContainer"></div>
-	<script src="/assets/js/bundle.js"></script>
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('service-worker.js').then(function(reg) {
+			}).catch(function(err) {
+				console.error('Registration failed:', error);
+			});
+		}
+	</script>
+	<script src="assets/js/bundle.js"></script>
 </body>
 </html>
