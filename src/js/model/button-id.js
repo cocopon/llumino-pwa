@@ -20,6 +20,7 @@ export type OperatorButtonId = '+' |
 
 export type ButtonId = NumberButtonId |
 	OperatorButtonId |
+	'%' |
 	'bs' |
 	'c' |
 	'.' |
@@ -45,16 +46,14 @@ const ButtonIdUtil = {
 		if (ButtonIdUtil.isOperator(buttonId)) {
 			return 'operator';
 		}
-		if (buttonId === 'bs') {
-			return 'delete';
-		}
-		if (buttonId === 'c') {
-			return 'clear';
-		}
-		if (buttonId === '=') {
-			return 'equal';
-		}
-		return null;
+
+		const MAP: {[ButtonId]: ButtonType} = {
+			'%': 'percent',
+			'=': 'equal',
+			'bs': 'delete',
+			'c': 'clear',
+		};
+		return MAP[buttonId] || null;
 	},
 
 	fromKey(key: string, keyCode: number): ?ButtonId {

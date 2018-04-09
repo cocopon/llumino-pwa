@@ -5,7 +5,7 @@ import Assert from 'power-assert';
 
 import Calculator from './calculator';
 
-import type {ButtonId} from './button-id';
+import type {ButtonId} from '../button-id';
 
 function pushButtons(calc: Calculator, buttonIds: ButtonId[]) {
 	buttonIds.forEach((buttonId) => {
@@ -224,6 +224,75 @@ describe('Calculator', () => {
 		Assert.strictEqual(
 			calc.answer,
 			12 * 34,
+		);
+	});
+
+	it('should calculate a percentage of input', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', '0', '8', '%',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			1.08,
+		);
+	});
+
+	it('should calculate a percentage of input with buffered operator', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'8', '0', '+', '%',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			0.8,
+		);
+	});
+
+	it('should operate with percent', () => {
+		const calc = new Calculator();
+
+		pushButtons(calc, [
+			'2', '0', '0', '+',
+			'5', '%',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			210,
+			'with `+` operator',
+		);
+
+		pushButtons(calc, [
+			'c',
+			'2', '0', '0', '-',
+			'5', '%',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			190,
+			'with `-` operator',
+		);
+
+		pushButtons(calc, [
+			'c',
+			'2', '0', '0', '*',
+			'5', '%',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			10,
+			'with `*` operator',
+		);
+
+		pushButtons(calc, [
+			'c',
+			'2', '0', '0', '/',
+			'5', '%',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			4000,
+			'with `/` operator',
 		);
 	});
 });

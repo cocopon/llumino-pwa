@@ -12,7 +12,7 @@ import type {ButtonId} from '../../model/button-id';
 
 const H_BUTTON_COUNT = 4;
 const BUTTON_IDS: ButtonId[] = [
-	'c', 'bs', '0', '/',
+	'c', 'bs', '%', '/',
 	'7', '8',  '9', '*',
 	'4', '5',  '6', '-',
 	'1', '2',  '3', '+',
