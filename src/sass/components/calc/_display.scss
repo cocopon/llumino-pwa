@@ -95,4 +95,12 @@ $prefix: 'calc';
 			animation-timing-function: ease-in;
 		}
 	}
+	&_noteLayout {
+		left: 9.4vw;
+		opacity: 0.5;
+		position: absolute;
+		right: 9.4vw;
+		text-align: left;
+		top: 4vh;
+	}
 }
