@@ -31,7 +31,7 @@ $prefix: 'calc';
 
 			@for $i from 1 through 4 {
 				&:nth-child(#{$i}) {
-					animation-duration: 0.2s + $i * 0.1s;
+					animation-delay: $i * 0.03s;
 				}
 			}
 		}
