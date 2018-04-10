@@ -9,18 +9,31 @@ import RootReducer from './reducer/root-reducer';
 
 import type {RootState} from './reducer/root-reducer';
 
-function applyTheme(theme: Theme) {
-	let styleElem = document.getElementById('theme');
+function applyCss(elementId: string, css: string) {
+	let styleElem = document.getElementById(elementId);
 	if (!styleElem) {
 		styleElem = document.createElement('style');
-		styleElem.id = 'theme';
+		styleElem.id = elementId;
 
 		if (document.head) {
 			document.head.appendChild(styleElem);
 		}
 	}
 
-	styleElem.textContent = theme.generateCss();
+	styleElem.textContent = css;
+}
+
+function applyThemeBase(theme: Theme) {
+	applyCss('baseTheme', theme.generateBaseCss());
+}
+
+function applyThemeEnergy(theme: Theme) {
+	applyCss('energyTheme', theme.generateEnergyCss());
+}
+
+function applyTheme(theme: Theme) {
+	applyThemeBase(theme);
+	applyThemeEnergy(theme);
 }
 
 export default {

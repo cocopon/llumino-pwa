@@ -33,19 +33,23 @@ $prefix: 'calc';
 
 		&:active,
 		&#{&}-active {
-			background-color: #f0f;
+			// Provided by theme:
+			// background-color: #f0f;
 		}
 
 		&#{&}-inefficient {
 			&:active {
-				background-color: rgba(#f0f, 0.2);
+				// Provided by theme:
+				// background-color: rgba(#f0f, 0.2);
 			}
 		}
 	}
 	&_buttonEnergy {
-		background-color: #f0f;
+		// Provided by theme:
+		// background-color: #f0f;
+		// box-shadow: 0 0 1em rgba(#f0f, 1);
+
 		bottom: 0;
-		box-shadow: 0 0 0.5em rgba(#f0f, 1);
 		left: 0;
 		opacity: 0;
 		position: absolute;
