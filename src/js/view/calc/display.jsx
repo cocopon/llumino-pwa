@@ -93,7 +93,7 @@ export default class Display extends React.Component<Props, State> {
 				<div className={className('innerLayout')}>
 				</div>
 				<div className={className('noteLayout')}>
-					NOTE: This is a technical demonstration of PWA (Progressive Web App).
+					NOTE: This is a web version of Llumino for a technical demonstration of PWA (Progressive Web App).
 				</div>
 			</button>
 		);
