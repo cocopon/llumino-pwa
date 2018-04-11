@@ -3,6 +3,7 @@ $prefix: 'calc';
 @keyframes #{$prefix}-menuItem-show {
 	0% {
 		opacity: 0;
+		visibility: visible;
 	}
 	100% {
 		opacity: 1;
@@ -16,12 +17,14 @@ $prefix: 'calc';
 	}
 	100% {
 		opacity: 0;
+		visibility: hidden;
 	}
 }
 
 .#{$prefix}-menu {
 	display: flex;
 	justify-content: space-between;
+	pointer-events: none;
 
 	&#{&}-show {
 		.#{$prefix}-menuItem {
@@ -48,6 +51,7 @@ $prefix: 'calc';
 	animation-fill-mode: forwards;
 	flex-basis: 25%;
 	height: 4vh;
+	pointer-events: auto;
 	position: relative;
 	opacity: 0;
 	white-space: nowrap;

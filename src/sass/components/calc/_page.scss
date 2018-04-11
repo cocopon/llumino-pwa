@@ -31,6 +31,7 @@ html.#{$prefix} {
 	&_menuLayout {
 		bottom: 1vh;
 		left: 0;
+		pointer-events: none;
 		position: absolute;
 		right: 0;
 	}
