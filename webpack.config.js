@@ -8,10 +8,6 @@ module.exports = (opt_env) => {
 
 	return [{
 		mode: 'development',
-		devServer: {
-			contentBase: Path.join(__dirname, 'public'),
-			publicPath: '/assets/',
-		},
 		entry: {
 			bundle: Path.resolve(__dirname, 'src/js/bundle.js'),
 		},
@@ -32,6 +28,29 @@ module.exports = (opt_env) => {
 		resolve: {
 			extensions: ['.js', '.jsx'],
 		},
+		devtool: false,
+	}, {
+		mode: 'development',
+		entry: {
+			'service-worker': Path.resolve(__dirname, 'src/js/service-worker.js'),
+		},
+		output: {
+			path: Path.resolve(__dirname, 'public/'),
+			filename: '[name].js',
+		},
+		module: {
+			rules: [
+				{
+					test: /\.js$/,
+					include: [Path.resolve(__dirname, 'src/js/')],
+					exclude: /node_modules/,
+				},
+			],
+		},
+		resolve: {
+			extensions: ['.js'],
+		},
+		devtool: false,
 	}, {
 		mode: 'development',
 		entry: {
