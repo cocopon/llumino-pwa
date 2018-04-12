@@ -22,6 +22,18 @@ type State = {
 const className = ClassName('calc', 'display');
 const EMPTY_HANDLER = () => {};
 
+function buildText(calc: Calculator): string {
+	if (calc.error) {
+		return 'Error';
+	}
+
+	const formattedNumber = NumberFormatter.format(calc.displayNumber);
+	const lastBuffer = calc.inputBuffers[calc.inputBuffers.length - 1];
+	return (lastBuffer === '.') ?
+		`${formattedNumber}.` :
+		formattedNumber;
+}
+
 export default class Display extends React.Component<Props, State> {
 	innerDisplay_: InnerDisplay;
 
@@ -61,10 +73,7 @@ export default class Display extends React.Component<Props, State> {
 		}
 
 		const calc = this.props.calculator;
-		const text = (calc.error) ?
-			'Error' :
-			NumberFormatter.format(calc.displayNumber);
-		this.innerDisplay_.updateText(text);
+		this.innerDisplay_.updateText(buildText(calc));
 
 		// Handle shake
 		if (this.state.shouldShake) {

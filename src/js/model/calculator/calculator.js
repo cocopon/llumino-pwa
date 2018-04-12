@@ -52,6 +52,10 @@ export default class Calculator {
 		return this.operatorBuffer_;
 	}
 
+	get inputBuffers(): ButtonId[] {
+		return [].concat(this.inputBuffers_);
+	}
+
 	pushButton(buttonId: ButtonId) {
 		try {
 			this.state_ = this.state_.pushButton(buttonId);
