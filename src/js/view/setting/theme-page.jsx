@@ -10,7 +10,7 @@ import Theme from '../../model/theme';
 import Themes from '../../model/themes';
 import ThemeList from './theme-list';
 
-import type {RootState} from '../../reducer/root-reducer';
+import type {RootState} from '../../store/root';
 
 type Props = {
 	onThemeItemClick: (theme: Theme) => void,

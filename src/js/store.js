@@ -1,13 +1,19 @@
 // @flow
 
 import * as Redux from 'redux';
+import * as ReduxPersist from 'redux-persist';
+import ReduxPersistStorage from 'redux-persist/lib/storage';
+import ReduxPersistAutoMergeLevel2StateReconciler from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import ReduxThunk from 'redux-thunk';
 
 import StoreSubscriber from './misc/store-subscriber';
 import Theme from './model/theme';
-import RootReducer from './reducer/root-reducer';
+import {
+	RootReducer,
+	RootStatePersistors,
+} from './store/root';
 
-import type {RootState} from './reducer/root-reducer';
+import type {RootState} from './store/root';
 
 function applyCss(elementId: string, css: string) {
 	let styleElem = document.getElementById(elementId);
@@ -36,12 +42,46 @@ function applyTheme(theme: Theme) {
 	applyThemeEnergy(theme);
 }
 
+function createTransform() {
+	return ReduxPersist.createTransform(
+		(inboundState, key) => {
+			const persistor = RootStatePersistors.filter((persistor) => {
+				return persistor.shouldHandle(key);
+			})[0];
+
+			const diff = persistor ?
+				persistor.inbound(inboundState) :
+				{};
+			return Object.assign({}, inboundState, diff);
+		},
+		(outboundState, key) => {
+			const persistor = RootStatePersistors.filter((persistor) => {
+				return persistor.shouldHandle(key);
+			})[0];
+
+			const diff = persistor ?
+				persistor.outbound(outboundState) :
+				{};
+			return Object.assign({}, outboundState, diff);
+		},
+	);
+}
+
 export default {
 	create(): Redux.Store<*, *> {
+		const persistedReducer = ReduxPersist.persistReducer({
+			key: 'root',
+			stateReconciler: ReduxPersistAutoMergeLevel2StateReconciler,
+			storage: ReduxPersistStorage,
+			transforms: [createTransform()],
+		}, (RootReducer: any));
 		const store = Redux.createStore(
-			(RootReducer: any),
+			(persistedReducer: any),
 			Redux.applyMiddleware(ReduxThunk),
 		);
+
+		const persistor = ReduxPersist.persistStore(store);
+		persistor.persist();
 
 		new StoreSubscriber(store, {
 			selector(state: RootState): Theme {

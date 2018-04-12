@@ -7,7 +7,7 @@ import * as CommonActionCreators from './common-action-creators';
 import type {CalcAction} from '../actions/calc-actions';
 import type {CommonAction} from '../actions/common-actions';
 import type {ButtonId} from '../model/button-id';
-import type {RootState} from '../reducer/root-reducer';
+import type {RootState} from '../store/root';
 
 export function pushButton(buttonId: ButtonId): any {
 	return (dispatch: Redux.Dispatch<CalcAction>, getState: () => RootState) => {

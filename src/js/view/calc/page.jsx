@@ -12,8 +12,8 @@ import Menu from './menu';
 
 import type {CalcAction} from '../../actions/calc-actions';
 import type {ButtonId} from '../../model/button-id';
-import type {CalcState} from '../../reducer/calc-reducer';
-import type {RootState} from '../../reducer/root-reducer';
+import type {CalcState} from '../../store/calc';
+import type {RootState} from '../../store/root';
 
 type Props = {
 	pageState: CalcState,

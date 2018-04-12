@@ -7,7 +7,7 @@ import * as Redux from 'redux';
 import CalcPage from './view/calc/page';
 import SettingPage from './view/setting/page';
 
-import type {RootState} from './reducer/root-reducer';
+import type {RootState} from './store/root';
 
 type Props = {
 	state: RootState,

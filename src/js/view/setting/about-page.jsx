@@ -9,7 +9,7 @@ import ClassName from '../../misc/class-name';
 import Constants from '../../misc/constants';
 import List from '../common/list';
 
-import type {RootState} from '../../reducer/root-reducer';
+import type {RootState} from '../../store/root';
 
 type Props = {
 };

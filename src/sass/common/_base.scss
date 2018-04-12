@@ -2,6 +2,7 @@
 
 html {
 	background-color: black;
+	color: white;
 	font-family: $font-family-mono;
 	font-size: 16px;
 }
@@ -9,7 +10,4 @@ html {
 * {
 	-webkit-text-size-adjust: none;
 	-webkit-user-select: none;
-	background-color: black !important;
-	box-shadow: none !important;
-	color: black !important;
 }

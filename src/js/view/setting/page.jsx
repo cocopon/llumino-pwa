@@ -12,8 +12,8 @@ import * as Tab from '../common/tab-root';
 import AboutPage from './about-page';
 import ThemePage from './theme-page';
 
-import type {RootState} from '../../reducer/root-reducer';
-import type {SettingState} from '../../reducer/setting-reducer';
+import type {RootState} from '../../store/root';
+import type {SettingState} from '../../store/setting';
 
 type Props = {
 	onCloseButtonClick: () => void,

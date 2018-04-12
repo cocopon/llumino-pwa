@@ -144,6 +144,16 @@ export default class Theme {
 		return rules.join(' ');
 	}
 
+	toObject(): ThemeObject {
+		return {
+			background: this.backgroundColor,
+			energies: this.energyColors,
+			foreground: this.foregroundColor,
+			id: this.id,
+			name: this.name,
+		};
+	}
+
 	static fromObject(obj: ThemeObject): Theme {
 		const theme = new Theme();
 		theme.backgroundColor = obj.background;
