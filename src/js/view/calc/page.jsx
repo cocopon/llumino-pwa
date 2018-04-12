@@ -54,6 +54,7 @@ class CalcPage extends React.Component<Props> {
 					</div>
 					<div className={className('gridLayout')}>
 						<ButtonGrid
+							bufferedOperatorId={pageState.calculator.bufferedOperator}
 							inefficientButtonIds={pageState.calculator.inefficientButtons}
 							onButtonClick={this.onGridButtonClick_}
 						/>

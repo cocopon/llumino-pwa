@@ -48,6 +48,10 @@ export default class Calculator {
 		return this.state_.inefficientButtons;
 	}
 
+	get bufferedOperator(): ?OperatorButtonId {
+		return this.operatorBuffer_;
+	}
+
 	pushButton(buttonId: ButtonId) {
 		try {
 			this.state_ = this.state_.pushButton(buttonId);

@@ -8,7 +8,10 @@ import ButtonIdUtil from '../../model/button-id';
 import EnergyField from '../../model/energy/field';
 import MoireSource from '../../model/energy/moire-source';
 
-import type {ButtonId} from '../../model/button-id';
+import type {
+	ButtonId,
+	OperatorButtonId,
+} from '../../model/button-id';
 
 const H_BUTTON_COUNT = 4;
 const BUTTON_IDS: ButtonId[] = [
@@ -28,6 +31,7 @@ const BUTTON_ID_TO_TEXT_MAP: {[ButtonId]: string} = {
 };
 
 type Props = {
+	bufferedOperatorId: ?OperatorButtonId,
 	inefficientButtonIds: ButtonId[],
 	onButtonClick: (buttonId: ButtonId) => void,
 };
@@ -89,6 +93,7 @@ export default class ButtonGrid extends React.Component<Props> {
 					<div className={className('buttonInnerLayout')}>
 						<button
 							className={className('button', {
+								active: (buttonId === this.props.bufferedOperatorId),
 								inefficient: this.isInefficientButton_(buttonId),
 							})}
 							data-button-id={buttonId}
