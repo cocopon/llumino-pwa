@@ -29,14 +29,14 @@ export default class Menu extends React.Component<Props, State> {
 		(this: any).onItemClick_ = this.onItemClick_.bind(this);
 
 		this.state = {
-			action: 'hide',
+			action: null,
 		};
 	}
 
 	static getDerivedStateFromProps(nextProps: Props, prevState: State): $Shape<State> {
 		let action = null;
 		
-		if (!nextProps.expanded && prevState.action !== 'hide') {
+		if (!nextProps.expanded && prevState.action === 'show') {
 			action = 'hide';
 		} else if (nextProps.expanded && prevState.action !== 'show') {
 			action = 'show';
