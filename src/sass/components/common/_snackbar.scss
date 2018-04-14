@@ -14,6 +14,7 @@ $prefix: 'common';
 
 @keyframes #{$prefix}-hide {
 	0% {
+		visibility: visible;
 	}
 	100% {
 		opacity: 0;
@@ -33,6 +34,7 @@ $prefix: 'common';
 	position: absolute;
 	right: 0;
 	top: 0;
+	visibility: hidden;
 
 	&#{&}-show {
 		animation-duration: 0.4s;
