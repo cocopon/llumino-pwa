@@ -9,10 +9,12 @@ type ThemeTarget = {
 };
 
 type ThemeObject = {
+	author: string,
 	background: string,
 	energies: string[],
 	foreground: string,
 	id: string,
+	license?: ?string,
 	name: string,
 };
 
@@ -68,13 +70,6 @@ const FG_TARGETS: ThemeTarget[] = [
 			return col.alpha(0.1).string();
 		},
 	},
-	{
-		selector: '.setting-themeListItem_preview',
-		property: 'border-color',
-		value(col: Color): string {
-			return col.alpha(0.1).string();
-		},
-	},
 ];
 
 const ROW_TO_ENERGY_TARGETS: (row: number) => ThemeTarget[] = (row: number) => {
@@ -102,10 +97,12 @@ const ROW_TO_ENERGY_TARGETS: (row: number) => ThemeTarget[] = (row: number) => {
 };
 
 export default class Theme {
+	author: string;
 	backgroundColor: string;
 	energyColors: string[];
 	foregroundColor: string;
 	id: string;
+	license: ?string;
 	name: string;
 
 	generateBaseCss(): string {
@@ -160,26 +157,31 @@ export default class Theme {
 
 	toObject(): ThemeObject {
 		return {
+			author: this.author,
 			background: this.backgroundColor,
 			energies: this.energyColors,
 			foreground: this.foregroundColor,
 			id: this.id,
+			license: this.license,
 			name: this.name,
 		};
 	}
 
 	static fromObject(obj: ThemeObject): Theme {
 		const theme = new Theme();
+		theme.author = obj.author;
 		theme.backgroundColor = obj.background;
 		theme.energyColors = obj.energies;
 		theme.foregroundColor = obj.foreground;
 		theme.id = obj.id;
+		theme.license = obj.license;
 		theme.name = obj.name;
 		return theme;
 	}
 
 	static defaultObject(): ThemeObject {
 		return {
+			author: 'cocopon',
 			background: '#000000',
 			energies: ['#ff00ff', '#ff0088'],
 			foreground: '#b7b7b7',
