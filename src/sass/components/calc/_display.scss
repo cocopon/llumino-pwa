@@ -44,7 +44,8 @@ $prefix: 'calc';
 	width: 100%;
 
 	&:active {
-		background-color: rgba(white, 0.1);
+		// Provided by theme:
+		// background-color: rgba(white, 0.05);
 	}
 
 	&#{&}-dimmed {
@@ -70,7 +71,6 @@ $prefix: 'calc';
 		width: 100%;
 	}
 	&_digit {
-		// font-size: 2.5rem;
 		font-size: 10vw;
 		font-weight: 300;
 		position: absolute;

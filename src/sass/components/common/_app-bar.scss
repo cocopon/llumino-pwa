@@ -16,3 +16,9 @@ $prefix: 'common';
 		top: 0;
 	}
 }
+
+.#{$prefix}-appBarButton {
+	&:active {
+		opacity: 0.8;
+	}
+}

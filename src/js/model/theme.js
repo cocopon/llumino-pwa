@@ -45,6 +45,13 @@ const BG_TARGETS: ThemeTarget[] = [
 const FG_TARGETS: ThemeTarget[] = [
 	{selector: 'html'},
 	{selector: '.calc-buttonGrid_buttonText'},
+	{
+		selector: '.calc-display:active',
+		property: 'background-color',
+		value(col: Color): string {
+			return col.alpha(0.05).string();
+		},
+	},
 	{selector: '.calc-menuItem_button', property: 'background-color'},
 	{
 		selector: '.calc-menuItem_button',
@@ -54,6 +61,13 @@ const FG_TARGETS: ThemeTarget[] = [
 		},
 	},
 	{selector: '.common-tabItem:before', property: 'background-color'},
+	{
+		selector: '.common-tabItem_button:active',
+		property: 'background-color',
+		value(col: Color): string {
+			return col.alpha(0.1).string();
+		},
+	},
 	{
 		selector: '.setting-themeListItem_preview',
 		property: 'border-color',

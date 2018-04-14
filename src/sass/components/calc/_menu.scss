@@ -64,9 +64,11 @@ $prefix: 'calc';
 		top: 0;
 	}
 	&_button {
-		background-color: #b7b7b7;
-		box-shadow: 0 0 1em rgba(#b7b7b7, 0.5);
-		color: black;
+		// Provided by theme:
+		// background-color: #b7b7b7;
+		// box-shadow: 0 0 1em rgba(#b7b7b7, 0.5);
+		// color: black;
+
 		display: block;
 		font-size: 0.8rem;
 		letter-spacing: 0.1em;
@@ -81,7 +83,7 @@ $prefix: 'calc';
 		}
 
 		&:active {
-			background-color: white;
+			opacity: 0.8;
 		}
 	}
 }

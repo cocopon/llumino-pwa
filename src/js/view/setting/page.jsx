@@ -26,6 +26,7 @@ type State = {
 	action: 'show' | 'hide' | null,
 };
 
+const EMPTY_HANDLER = () => {};
 const className = ClassName('setting', 'page');
 
 class SettingPage extends React.Component<Props, State> {
@@ -63,7 +64,11 @@ class SettingPage extends React.Component<Props, State> {
 			<div className={className(modifierMap)}>
 				<div className={className('appBarLayout')}>
 					<AppBar title="Settings">
-						<button onClick={this.props.onCloseButtonClick}>
+						<button
+							className="common-appBarButton"
+							onClick={this.props.onCloseButtonClick}
+							onTouchStart={EMPTY_HANDLER}
+						>
 							Close
 						</button>
 					</AppBar>
