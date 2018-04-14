@@ -3,19 +3,20 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 
+import * as CommonActionCreators from './action-creators/common-action-creators';
 import App from './app';
 import Store from './store';
 
-type Props = {
-};
+export default function() {
+	const store = Store.create();
 
-export default class AppWrapper extends React.Component<Props> {
-	render() {
-		const store = Store.create();
-		return (
-			<ReactRedux.Provider store={store}>
-				<App/>
-			</ReactRedux.Provider>
-		);
-	}
+	store.dispatch(
+		CommonActionCreators.checkForUpdate(),
+	);
+
+	return (
+		<ReactRedux.Provider store={store}>
+			<App/>
+		</ReactRedux.Provider>
+	);
 }

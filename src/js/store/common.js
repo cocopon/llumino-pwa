@@ -13,11 +13,13 @@ import type {
 import type {PageId} from '../model/page-id';
 	
 export type CommonState = {
+	outdated: boolean,
 	pageId: PageId,
 	theme: Theme,
 };
 
 const INITIAL_STATE: CommonState = {
+	outdated: false,
 	pageId: 'calc',
 	theme: Theme.fromObject(
 		Theme.defaultObject(),
@@ -34,6 +36,12 @@ export const CommonReducer = ReduxActions.handleActions({
 	COMMON_CHANGE_THEME(state, action: CommonChangeThemeAction) {
 		return FlowUtil.updateState(state, {
 			theme: action.theme,
+		});
+	},
+
+	COMMON_UPDATE_OUTDATED(state, action) {
+		return FlowUtil.updateState(state, {
+			outdated: action.outdated,
 		});
 	},
 }, INITIAL_STATE);

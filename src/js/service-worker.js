@@ -5,34 +5,38 @@ const FILES_TO_CACHE = [
 	'./assets/js/bundle.js',
 ];
 
+function updateCache() {
+	return caches.open(CACHE_NAME).then((cache) => {
+		return cache.addAll(FILES_TO_CACHE);
+	});
+}
+
 self.addEventListener('install', (ev) => {
-	ev.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => {
-			return cache.addAll(FILES_TO_CACHE);
-		})
-	);
+	ev.waitUntil(updateCache());
 });
 
 self.addEventListener('fetch', (ev) => {
 	ev.respondWith(
 		caches.open(CACHE_NAME).then((cache) => {
 			return cache.match(ev.request).then((res) => {
-				if (res) {
-					// TODO: Remove
-					console.log(`cache found: ${res.url}`);
-				}
-
-				// Update cache (will be loaded at next launch)
-				const f = fetch(ev.request).then((res) => {
-					// TODO: Remove
-					console.log(`cache updated: ${res.url}`);
-
-					cache.put(ev.request, res.clone());
-					return res;
-				});
-
-				return res || f;
+				return res || fetch(ev.request);
 			});
 		})
 	);
+});
+
+self.addEventListener('message', (ev) => {
+	const message = ev.data;
+
+	if (message.type === 'UPDATE_CACHE') {
+		updateCache().then(() => {
+			self.clients.matchAll().then((clients) => {
+				clients.forEach((client) => {
+					client.postMessage({
+						type: 'COMPLETE_UPDATING_CACHE',
+					});
+				});
+			});
+		});
+	}
 });

@@ -1,13 +1,35 @@
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const Fs = require('fs-extra');
 const Path = require('path');
 const Webpack = require('webpack');
+
+const Package = require('./package.json');
+
+class HookDonePlugin {
+	constructor(onDone) {
+		this.onDone_ = onDone;
+	}
+
+	apply(compiler) {
+		compiler.hooks.done.tap('HookDonePlugin', (stats) => {
+			this.onDone_();
+		});
+	}
+}
 
 module.exports = (opt_env) => {
 	const env = opt_env || {};
 	const debug = !!env.debug;
 
+	const jsPlugins = [
+		new Webpack.DefinePlugin({
+			'APP_VERSION_VALUE': JSON.stringify(Package.version),
+		}),
+	];
+
 	return [{
 		mode: 'development',
+		devtool: false,
 		entry: {
 			bundle: Path.resolve(__dirname, 'src/js/bundle.js'),
 		},
@@ -28,9 +50,18 @@ module.exports = (opt_env) => {
 		resolve: {
 			extensions: ['.js', '.jsx'],
 		},
-		devtool: false,
+		plugins: jsPlugins.concat([
+			new HookDonePlugin(() => {
+				Fs.ensureDirSync(Path.resolve(__dirname, 'public/assets/data'));
+				Fs.writeFileSync(
+					Path.resolve(__dirname, 'public/assets/data/version'),
+					Package.version,
+				);
+			}),
+		]),
 	}, {
 		mode: 'development',
+		devtool: false,
 		entry: {
 			'service-worker': Path.resolve(__dirname, 'src/js/service-worker.js'),
 		},
@@ -50,7 +81,7 @@ module.exports = (opt_env) => {
 		resolve: {
 			extensions: ['.js'],
 		},
-		devtool: false,
+		plugins: jsPlugins,
 	}, {
 		mode: 'development',
 		entry: {

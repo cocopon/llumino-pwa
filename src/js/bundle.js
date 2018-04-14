@@ -25,7 +25,7 @@ function adjustFontSize() {
 		return;
 	}
 	ReactDom.render(
-		React.createElement(AppWrapper),
+		AppWrapper(),
 		containerElem,
 	);
 

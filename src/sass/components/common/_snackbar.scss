@@ -1,0 +1,61 @@
+$prefix: 'common';
+
+@keyframes #{$prefix}-show {
+	0% {
+		opacity: 0;
+		transform: translateY(-2vh);
+		visibility: visible;
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes #{$prefix}-hide {
+	0% {
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-2vh);
+		visibility: hidden;
+	}
+}
+
+.#{$prefix}-snackbar {
+	background: white;
+	color: black;
+	display: flex;
+	left: 0;
+	margin: auto;
+	max-width: 800px;
+	opacity: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+
+	&#{&}-show {
+		animation-duration: 0.4s;
+		animation-fill-mode: forwards;
+		animation-name: #{$prefix}-show;
+		animation-timing-function: ease-out;
+	}
+	&#{&}-hide {
+		animation-duration: 0.4s;
+		animation-fill-mode: forwards;
+		animation-name: #{$prefix}-hide;
+		animation-timing-function: ease-out;
+	}
+
+	&_text {
+		flex-grow: 1;
+		opacity: 0.5;
+		padding: 2vh 0 2vh 2vw;
+	}
+	&_buttonLayout {
+		display: flex;
+	}
+	&_button {
+		padding: 2vh 2vw;
+	}
+}
