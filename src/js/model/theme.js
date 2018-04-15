@@ -72,6 +72,13 @@ const FG_TARGETS: ThemeTarget[] = [
 			return col.alpha(0.1).string();
 		},
 	},
+	{
+		selector: '.setting-themeListItem_button:active',
+		property: 'background-color',
+		value(col: Color): string {
+			return col.alpha(0.1).string();
+		},
+	},
 ];
 
 const ROW_TO_ENERGY_TARGETS: (row: number) => ThemeTarget[] = (row: number) => {
