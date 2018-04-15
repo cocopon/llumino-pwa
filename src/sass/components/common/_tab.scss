@@ -7,11 +7,11 @@ $prefix: 'common';
 	position: absolute;
 	right: 0;
 	top: 0;
-	z-index: $z-index-tab;
 
 	&_itemsLayout {
 		display: flex;
 		position: relative;
+		z-index: $z-index-tab;
 	}
 	&_pageLayout {
 		-webkit-overflow-scrolling: touch;

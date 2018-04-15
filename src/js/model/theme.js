@@ -33,9 +33,9 @@ const BG_TARGETS: ThemeTarget[] = [
 		property: 'color',
 	},
 	{selector: '.common-appBar'},
-	{selector: '.common-tab'},
+	{selector: '.common-tab_itemsLayout'},
 	{
-		selector: '.common-tab',
+		selector: '.common-tab_itemsLayout',
 		property: 'box-shadow',
 		value(col: Color): string {
 			return `0 0.3em 0.6em ${col.darken(0.5).alpha(0.3).string()}`;
