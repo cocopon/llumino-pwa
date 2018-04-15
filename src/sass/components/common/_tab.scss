@@ -1,7 +1,6 @@
 $prefix: 'common';
 
 .#{$prefix}-tab {
-	transition: $page-background-transition;
 	bottom: 0;
 	left: 0;
 	position: absolute;
@@ -11,6 +10,7 @@ $prefix: 'common';
 	&_itemsLayout {
 		display: flex;
 		position: relative;
+		transition: $page-background-transition;
 		z-index: $z-index-tab;
 	}
 	&_pageLayout {
