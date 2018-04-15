@@ -19,9 +19,22 @@ $prefix: 'setting';
 		text-align: center;
 		width: 100%;
 	}
-	&_previewText {
+	&_previewContentLayout {
 		display: table-cell;
 		vertical-align: middle;
+	}
+	&_energiesLayout {
+		margin-top: 0.5rem;
+		text-align: center;
+	}
+	&_energy {
+		display: inline-block;
+		height: 0.4rem;
+		width: 0.4rem;
+
+		& + & {
+			margin-left: 0.4rem;
+		}
 	}
 	&_button {
 		display: block;
