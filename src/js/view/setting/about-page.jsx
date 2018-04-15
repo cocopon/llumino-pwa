@@ -9,11 +9,12 @@ import ClassName from '../../misc/class-name';
 import Constants from '../../misc/constants';
 import License from '../../misc/license';
 import Themes from '../../model/themes';
-import List from '../common/list';
+import Button from '../common/button';
 
 import type {RootState} from '../../store/root';
 
 type Props = {
+	onForceReloadButtonClick: () => void,
 };
 
 const className = ClassName('setting', 'aboutPage');
@@ -60,6 +61,12 @@ class AboutPage extends React.Component<Props> {
 					</div>
 				</div>
 				{licenseElems}
+				<div className={className('section')}>
+					<Button
+						onClick={this.props.onForceReloadButtonClick}
+						title="Force reload"
+					/>
+				</div>
 			</div>
 		);
 	}
@@ -72,6 +79,9 @@ function mapStateToProps(state: RootState) {
 
 function mapDispatchToProps(dispatch: Redux.Dispatch<*>) {
 	return {
+		onForceReloadButtonClick() {
+			dispatch(SettingActionCreators.forceReload());
+		},
 	};
 }
 

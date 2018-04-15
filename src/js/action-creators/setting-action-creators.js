@@ -1,5 +1,7 @@
 // @flow
 
+import * as Redux from 'redux';
+
 import * as CommonActionCreators from './common-action-creators';
 import * as SettingActionCreators from './setting-action-creators';
 
@@ -14,5 +16,11 @@ export function changeTab(itemId: string): SettingAction {
 	return {
 		pageId: itemId,
 		type: 'SETTING_CHANGE_TAB',
+	};
+}
+
+export function forceReload(): any {
+	return (_dispatch: Redux.Dispatch<CommonAction>) => {
+		location.reload(true);
 	};
 }

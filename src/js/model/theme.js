@@ -33,6 +33,7 @@ const BG_TARGETS: ThemeTarget[] = [
 		property: 'color',
 	},
 	{selector: '.common-appBar'},
+	{selector: '.common-button', property: 'color'},
 	{selector: '.common-tab_itemsLayout'},
 	{
 		selector: '.common-tab_itemsLayout',
@@ -62,6 +63,7 @@ const FG_TARGETS: ThemeTarget[] = [
 			return `0 0 1em ${col.alpha(0.3).string()}`;
 		},
 	},
+	{selector: '.common-button', property: 'background-color'},
 	{selector: '.common-tabItem:before', property: 'background-color'},
 	{
 		selector: '.common-tabItem_button:active',

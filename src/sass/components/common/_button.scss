@@ -1,0 +1,11 @@
+$prefix: 'common';
+
+.#{$prefix}-button {
+	cursor: pointer;
+	padding: 0.8rem 1.6rem;
+	text-align: center;
+
+	&:active {
+		opacity: 0.8;
+	}
+}
