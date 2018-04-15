@@ -1,7 +1,7 @@
 $prefix: 'setting';
 
 .#{$prefix}-themeList {
-	padding: 4vw;
+	padding: 1rem;
 }
 .#{$prefix}-themeListItem {
 	display: inline-block;
@@ -24,12 +24,19 @@ $prefix: 'setting';
 		vertical-align: middle;
 	}
 	&_energiesLayout {
-		margin-top: 0.5rem;
+		bottom: 1rem;
+		height: 0.4rem;
+		left: 1rem;
+		line-height: 0.4rem;
+		margin-top: 1rem;
+		position: absolute;
+		right: 1rem;
 		text-align: center;
 	}
 	&_energy {
 		display: inline-block;
 		height: 0.4rem;
+		vertical-align: top;
 		width: 0.4rem;
 
 		& + & {
@@ -38,7 +45,7 @@ $prefix: 'setting';
 	}
 	&_button {
 		display: block;
-		padding: 4vw;
+		padding: 1rem;
 		width: 100%;
 
 		&:active {

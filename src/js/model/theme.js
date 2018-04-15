@@ -33,9 +33,9 @@ const BG_TARGETS: ThemeTarget[] = [
 		property: 'color',
 	},
 	{selector: '.common-appBar'},
-	{selector: '.common-tab_itemsLayout'},
+	{selector: '.common-tab'},
 	{
-		selector: '.common-tab_itemsLayout',
+		selector: '.common-tab',
 		property: 'box-shadow',
 		value(col: Color): string {
 			return `0 0.3em 0.6em ${col.darken(0.5).alpha(0.3).string()}`;
@@ -59,7 +59,7 @@ const FG_TARGETS: ThemeTarget[] = [
 		selector: '.calc-menuItem_button',
 		property: 'box-shadow',
 		value(col: Color): string {
-			return `0 0 1em ${col.alpha(0.5).string()}`;
+			return `0 0 1em ${col.alpha(0.3).string()}`;
 		},
 	},
 	{selector: '.common-tabItem:before', property: 'background-color'},

@@ -21,13 +21,16 @@ $prefix: 'setting';
 }
 
 .#{$prefix}-page {
+	// Provided by theme
+	// background-color: black;
+
 	animation-fill-mode: forwards;
-	background-color: black;
 	height: 100%;
 	left: 0;
 	position: absolute;
 	top: 0;
 	transform: translateY(100vh);
+	transition: $page-background-transition;
 	width: 100%;
 
 	&#{&}-hide {

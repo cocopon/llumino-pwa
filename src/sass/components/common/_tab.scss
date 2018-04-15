@@ -1,16 +1,17 @@
 $prefix: 'common';
 
 .#{$prefix}-tab {
+	transition: $page-background-transition;
 	bottom: 0;
 	left: 0;
 	position: absolute;
 	right: 0;
 	top: 0;
+	z-index: $z-index-tab;
 
 	&_itemsLayout {
 		display: flex;
 		position: relative;
-		z-index: $z-index-tab;
 	}
 	&_pageLayout {
 		-webkit-overflow-scrolling: touch;
