@@ -58,6 +58,14 @@ const THEMES: Theme[] = [
 		license: 'mit',
 		name: 'Seoul256 light',
 	}),
+	Theme.fromObject({
+		author: 'cocopon',
+		background: '#f0f0f0',
+		energies: ['#ffaaff', '#88eeee'],
+		foreground: '#999999',
+		id: 'unicorn',
+		name: 'Unicorn',
+	}),
 ];
 
 export default THEMES;
