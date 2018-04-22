@@ -1,0 +1,44 @@
+$prefix: 'common';
+
+.#{$prefix}-checkboxField {
+	&_label {
+		display: block;
+	}
+	&_input {
+		appearance: none;
+		position: absolute;
+		visibility: hidden;
+	}
+	&_box {
+		border: currentColor solid 2px;
+		box-sizing: border-box;
+		display: inline-block;
+		height: $common-checkbox-field-box-size;
+		line-height: $common-checkbox-field-box-size;
+		position: relative;
+		vertical-align: top;
+		width: $common-checkbox-field-box-size;
+
+		&:before {
+			background-color: currentColor;
+			bottom: $common-checkbox-field-checked-spacing;
+			content: '';
+			display: block;
+			left: $common-checkbox-field-checked-spacing;
+			opacity: 0;
+			position: absolute;
+			right: $common-checkbox-field-checked-spacing;
+			top: $common-checkbox-field-checked-spacing;
+			transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+		}
+	}
+	&_input:checked + &_box:before {
+		opacity: 1;
+	}
+	&_text {
+		display: inline-block;
+		line-height: $common-checkbox-field-box-size;
+		margin-left: 1rem;
+		vertical-align: top;
+	}
+}

@@ -10,10 +10,13 @@ import Constants from '../../misc/constants';
 import License from '../../misc/license';
 import Themes from '../../model/themes';
 import Button from '../common/button';
+import CheckboxField from '../common/checkbox-field';
 
 import type {RootState} from '../../store/root';
 
 type Props = {
+	fancy: boolean,
+	onFancyChange: (fancy: boolean) => void,
 	onForceReloadButtonClick: () => void,
 };
 
@@ -62,10 +65,24 @@ class AboutPage extends React.Component<Props> {
 				</div>
 				{licenseElems}
 				<div className={className('section')}>
-					<Button
-						onClick={this.props.onForceReloadButtonClick}
-						title="Force reload"
-					/>
+					<h1 className={className('title')}>
+						Advanced
+					</h1>
+					<div className={className('formLayout')}>
+						<div className={className('fieldLayout')}>
+							<CheckboxField
+								checked={this.props.fancy}
+								onChange={this.props.onFancyChange}
+								title="Fancy"
+							/>
+						</div>
+						<div className={className('fieldLayout')}>
+							<Button
+								onClick={this.props.onForceReloadButtonClick}
+								title="Force reload"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		);
@@ -74,6 +91,7 @@ class AboutPage extends React.Component<Props> {
 
 function mapStateToProps(state: RootState) {
 	return {
+		fancy: state.common.fancy,
 	};
 }
 
@@ -81,6 +99,9 @@ function mapDispatchToProps(dispatch: Redux.Dispatch<*>) {
 	return {
 		onForceReloadButtonClick() {
 			dispatch(SettingActionCreators.forceReload());
+		},
+		onFancyChange(fancy: boolean) {
+			dispatch(SettingActionCreators.updateFancy(fancy));
 		},
 	};
 }

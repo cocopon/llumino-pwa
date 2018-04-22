@@ -24,3 +24,10 @@ export function forceReload(): any {
 		location.reload(true);
 	};
 }
+
+export function updateFancy(fancy: boolean): CommonAction {
+	return {
+		fancy,
+		type: 'COMMON_UPDATE_FANCY',
+	};
+}

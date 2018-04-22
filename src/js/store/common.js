@@ -9,16 +9,20 @@ import Theme from '../model/theme';
 import type {
 	CommonChangePageAction,
 	CommonChangeThemeAction,
+	CommonUpdateFancyAction,
+	CommonUpdateOutdatedAction,
 } from '../actions/common-actions';
 import type {PageId} from '../model/page-id';
 	
 export type CommonState = {
+	fancy: boolean,
 	outdated: boolean,
 	pageId: PageId,
 	theme: Theme,
 };
 
 const INITIAL_STATE: CommonState = {
+	fancy: false,
 	outdated: false,
 	pageId: 'calc',
 	theme: Theme.fromObject(
@@ -39,9 +43,15 @@ export const CommonReducer = ReduxActions.handleActions({
 		});
 	},
 
-	COMMON_UPDATE_OUTDATED(state, action) {
+	COMMON_UPDATE_OUTDATED(state, action: CommonUpdateOutdatedAction) {
 		return FlowUtil.updateState(state, {
 			outdated: action.outdated,
+		});
+	},
+
+	COMMON_UPDATE_FANCY(state, action: CommonUpdateFancyAction) {
+		return FlowUtil.updateState(state, {
+			fancy: action.fancy,
 		});
 	},
 }, INITIAL_STATE);

@@ -14,11 +14,17 @@ export type CommonChangeThemeAction = {
 	type: 'COMMON_CHANGE_THEME',
 };
 
-export type CommonUpdateOutdated = {
+export type CommonUpdateOutdatedAction = {
 	outdated: boolean,
 	type: 'COMMON_UPDATE_OUTDATED',
 };
 
+export type CommonUpdateFancyAction = {
+	fancy: boolean,
+	type: 'COMMON_UPDATE_FANCY',
+};
+
 export type CommonAction = CommonChangePageAction |
 	CommonChangeThemeAction |
-	CommonUpdateOutdated;
+	CommonUpdateOutdatedAction |
+	CommonUpdateFancyAction;

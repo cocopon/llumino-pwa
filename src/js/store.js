@@ -29,17 +29,9 @@ function applyCss(elementId: string, css: string) {
 	styleElem.textContent = css;
 }
 
-function applyThemeBase(theme: Theme) {
+function applyTheme(theme: Theme, fancy: boolean) {
 	applyCss('baseTheme', theme.generateBaseCss());
-}
-
-function applyThemeEnergy(theme: Theme) {
-	applyCss('energyTheme', theme.generateEnergyCss());
-}
-
-function applyTheme(theme: Theme) {
-	applyThemeBase(theme);
-	applyThemeEnergy(theme);
+	applyCss('energyTheme', theme.generateEnergyCss(fancy));
 }
 
 function createTransform() {
@@ -88,10 +80,26 @@ export default {
 				return state.common.theme;
 			},
 			onChange(theme: Theme) {
-				applyTheme(theme);
+				const state = store.getState();
+				applyTheme(theme, state.common.fancy);
 			},
 		});
-		applyTheme(store.getState().common.theme);
+
+		new StoreSubscriber(store, {
+			selector(state: RootState): boolean {
+				return state.common.fancy;
+			},
+			onChange(fancy: boolean) {
+				const state = store.getState();
+				applyTheme(state.common.theme, fancy);
+			},
+		});
+
+		const state = store.getState();
+		applyTheme(
+			state.common.theme,
+			state.common.fancy,
+		);
 
 		return store;
 	},

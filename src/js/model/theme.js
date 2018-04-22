@@ -81,11 +81,12 @@ const FG_TARGETS: ThemeTarget[] = [
 	},
 ];
 
-const ROW_TO_ENERGY_TARGETS: (row: number) => ThemeTarget[] = (row: number) => {
+const ROW_TO_ENERGY_TARGETS: (row: number, fancy: boolean) => ThemeTarget[] = (row: number, fancy: boolean) => {
 	const layout = `.calc-buttonGrid_buttonLayout:nth-child(n + ${1 + row * 4})`;
 	const button = '.calc-buttonGrid_button';
 	const energy = '.calc-buttonGrid_buttonEnergy';
-	return [
+
+	const targets = [
 		{selector: `${layout} ${button}:active`},
 		{selector: `${layout} ${button}-active`},
 		{
@@ -95,14 +96,19 @@ const ROW_TO_ENERGY_TARGETS: (row: number) => ThemeTarget[] = (row: number) => {
 			},
 		},
 		{selector: `${layout} ${energy}`},
-		{
+	];
+
+	if (fancy) {
+		targets.push({
 			selector: `${layout} ${energy}`,
 			property: 'box-shadow',
 			value(col: Color): string {
 				return `0 0 2em ${col.alpha(0.5).string()}`;
 			},
-		},
-	];
+		});
+	}
+
+	return targets;
 };
 
 export default class Theme {
@@ -142,12 +148,12 @@ export default class Theme {
 		return rules.join(' ');
 	}
 
-	generateEnergyCss(): string {
+	generateEnergyCss(fancy: boolean): string {
 		const rules: string[] = [];
 
 		const ROW_COUNT = 5;
 		[0, 1, 2, 3, 4].forEach((row) => {
-			rules.push(...ROW_TO_ENERGY_TARGETS(row).map((target) => {
+			rules.push(...ROW_TO_ENERGY_TARGETS(row, fancy).map((target) => {
 				const c1 = Color(this.energyColors[0]);
 				const c2 = Color(this.energyColors[1]);
 				const c = c1.mix(c2, row / (ROW_COUNT - 1));

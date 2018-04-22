@@ -19,4 +19,12 @@ $prefix: 'setting';
 			margin-top: 0.5em;
 		}
 	}
+	&_formLayout {
+		margin-top: 2rem;
+	}
+	&_fieldLayout {
+		& + & {
+			margin-top: 2rem;
+		}
+	}
 }
