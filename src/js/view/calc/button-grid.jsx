@@ -36,9 +36,13 @@ type Props = {
 	onButtonClick: (buttonId: ButtonId) => void,
 };
 
+type State = {
+	detectedTouchEvent: boolean,
+};
+
 const className = ClassName('calc', 'buttonGrid');
 
-export default class ButtonGrid extends React.Component<Props> {
+export default class ButtonGrid extends React.Component<Props, State> {
 	buttonElems_: HTMLButtonElement[] = [];
 	energyElems_: HTMLElement[] = [];
 	shouldDispose_: boolean = false;
@@ -47,6 +51,10 @@ export default class ButtonGrid extends React.Component<Props> {
 
 	constructor(props: Props) {
 		super(props);
+
+		this.state = {
+			detectedTouchEvent: false,
+		};
 
 		(this: any).onButtonClick_ = this.onButtonClick_.bind(this);
 		(this: any).onButtonKeyDown_ = this.onButtonKeyDown_.bind(this);
@@ -149,6 +157,13 @@ export default class ButtonGrid extends React.Component<Props> {
 	}
 
 	onButtonClick_(e: SyntheticEvent<HTMLButtonElement>) {
+		if (this.state.detectedTouchEvent) {
+			// NOTE:
+			// Dragged touch will not invoke click event on Android,
+			// so click event should be handled in touchend
+			return;
+		}
+
 		const buttonElem = e.currentTarget;
 		const buttonId = (buttonElem.dataset.buttonId: any);
 		this.handleButtonClick_(buttonId);
@@ -159,6 +174,10 @@ export default class ButtonGrid extends React.Component<Props> {
 	}
 
 	onButtonTouchStart_(e: SyntheticTouchEvent<HTMLButtonElement>) {
+		this.setState({
+			detectedTouchEvent: true,
+		});
+
 		const buttonElem = e.currentTarget;
 		const buttonId = (buttonElem.dataset.buttonId: any);
 		const index = BUTTON_IDS.indexOf(buttonId);
@@ -170,6 +189,7 @@ export default class ButtonGrid extends React.Component<Props> {
 		const buttonId = (buttonElem.dataset.buttonId: any);
 		const index = BUTTON_IDS.indexOf(buttonId);
 		this.updateButtonActive_(index, false);
+		this.handleButtonClick_(buttonId);
 	}
 
 	updateButtonActive_(index: number, active: boolean) {
