@@ -2,6 +2,7 @@ $prefix: 'common';
 
 .#{$prefix}-checkboxField {
 	&_label {
+		cursor: pointer;
 		display: block;
 	}
 	&_input {
