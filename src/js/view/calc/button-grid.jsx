@@ -37,7 +37,6 @@ type Props = {
 };
 
 const className = ClassName('calc', 'buttonGrid');
-const EMPTY_HANDLER = () => {};
 
 export default class ButtonGrid extends React.Component<Props> {
 	buttonElems_: HTMLButtonElement[] = [];
@@ -51,6 +50,8 @@ export default class ButtonGrid extends React.Component<Props> {
 
 		(this: any).onButtonClick_ = this.onButtonClick_.bind(this);
 		(this: any).onButtonKeyDown_ = this.onButtonKeyDown_.bind(this);
+		(this: any).onButtonTouchStart_= this.onButtonTouchStart_.bind(this);
+		(this: any).onButtonTouchEnd_ = this.onButtonTouchEnd_.bind(this);
 		(this: any).onDocumentKeyDown_ = this.onDocumentKeyDown_.bind(this);
 		(this: any).onDocumentKeyUp_ = this.onDocumentKeyUp_.bind(this);
 		(this: any).onTick_ = this.onTick_.bind(this);
@@ -100,7 +101,8 @@ export default class ButtonGrid extends React.Component<Props> {
 							data-index={index}
 							onClick={this.onButtonClick_}
 							onKeyDown={this.onButtonKeyDown_}
-							onTouchStart={EMPTY_HANDLER}
+							onTouchStart={this.onButtonTouchStart_}
+							onTouchEnd={this.onButtonTouchEnd_}
 							ref={(elem) => {
 								if (elem) {
 									this.buttonElems_[index] = elem;
@@ -154,6 +156,20 @@ export default class ButtonGrid extends React.Component<Props> {
 
 	onButtonKeyDown_(e: SyntheticKeyboardEvent<HTMLButtonElement>) {
 		e.preventDefault();
+	}
+
+	onButtonTouchStart_(e: SyntheticTouchEvent<HTMLButtonElement>) {
+		const buttonElem = e.currentTarget;
+		const buttonId = (buttonElem.dataset.buttonId: any);
+		const index = BUTTON_IDS.indexOf(buttonId);
+		this.updateButtonActive_(index, true);
+	}
+
+	onButtonTouchEnd_(e: SyntheticTouchEvent<HTMLButtonElement>) {
+		const buttonElem = e.currentTarget;
+		const buttonId = (buttonElem.dataset.buttonId: any);
+		const index = BUTTON_IDS.indexOf(buttonId);
+		this.updateButtonActive_(index, false);
 	}
 
 	updateButtonActive_(index: number, active: boolean) {

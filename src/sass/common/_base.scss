@@ -4,6 +4,7 @@ html {
 	font-family: $font-family-mono;
 	font-size: 16px;
 	transition: $page-background-transition;
+	touch-action: manipulation;
 }
 
 html, body {
