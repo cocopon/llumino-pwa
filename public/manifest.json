@@ -3,19 +3,19 @@
 	"display": "standalone",
 	"icons": [{
 		"sizes": "180x180",
-		"src": "assets/img/icon-180x180.png",
+		"src": "assets/img/icon/android/180x180.png",
 		"type": "image/png"
 	}, {
 		"sizes": "192x192",
-		"src": "assets/img/icon-192x192.png",
+		"src": "assets/img/icon/android/192x192.png",
 		"type": "image/png"
 	}, {
 		"sizes": "512x512",
-		"src": "assets/img/icon-512x512.png",
+		"src": "assets/img/icon/android/512x512.png",
 		"type": "image/png"
 	}],
 	"name": "Llumino PWA",
-	"short_name": "Llumino PWA",
+	"short_name": "Llumino",
 	"start_url": "./",
 	"theme_color": "#000000"
 }
