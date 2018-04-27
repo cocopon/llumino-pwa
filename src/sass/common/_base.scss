@@ -18,5 +18,7 @@ html, body {
 
 * {
 	-webkit-text-size-adjust: none;
+}
+:not(input, textarea) {
 	-webkit-user-select: none;
 }
