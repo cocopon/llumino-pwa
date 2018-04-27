@@ -59,7 +59,7 @@ class AboutPage extends React.Component<Props> {
 						Llumino PWA {Constants.version}
 					</h1>
 					<div className={className('detail')}>
-						<p>Llumino is a luminary calculator that makes calculation more fun.</p>
+						<p>Llumino is a luminous calculator that makes calculation more fun.</p>
 						<p>This was originally developed as an iOS native app, and now re-built with the latest web technology. This is also a technical demonstration of PWA (Progressive Web App).</p>
 					</div>
 				</div>
