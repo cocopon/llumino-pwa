@@ -3,7 +3,6 @@
 import * as Redux from 'redux';
 
 import * as CommonActionCreators from './common-action-creators';
-import * as SettingActionCreators from './setting-action-creators';
 
 import type {CommonAction} from '../actions/common-actions';
 import type {SettingAction} from '../actions/setting-actions';

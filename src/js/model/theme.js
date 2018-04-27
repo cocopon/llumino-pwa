@@ -8,7 +8,7 @@ type ThemeTarget = {
 	value?: (color: Color) => string,
 };
 
-type ThemeObject = {
+export type ThemeObject = {
 	author: string,
 	background: string,
 	energies: string[],

@@ -13,21 +13,20 @@ import type {
 	CommonUpdateOutdatedAction,
 } from '../actions/common-actions';
 import type {PageId} from '../model/page-id';
+import type {ThemeObject} from '../model/theme';
 	
 export type CommonState = {
 	fancy: boolean,
 	outdated: boolean,
 	pageId: PageId,
-	theme: Theme,
+	theme: ThemeObject,
 };
 
 const INITIAL_STATE: CommonState = {
 	fancy: false,
 	outdated: false,
 	pageId: 'calc',
-	theme: Theme.fromObject(
-		Theme.defaultObject(),
-	),
+	theme: Theme.defaultObject(),
 };
 
 export const CommonReducer = ReduxActions.handleActions({
@@ -58,14 +57,10 @@ export const CommonReducer = ReduxActions.handleActions({
 
 export const CommonStatePersistor: StatePersistor<CommonState> = new StatePersistor(
 	'common',
-	(state) => {
-		return {
-			theme: state.theme.toObject(),
-		};
+	(_state) => {
+		return {};
 	},
-	(obj) => {
-		return {
-			theme: Theme.fromObject(obj.theme),
-		};
+	(_obj) => {
+		return {};
 	},
 );

@@ -7,7 +7,6 @@ import Theme from '../model/theme';
 
 import type {CommonAction} from '../actions/common-actions';
 import type {PageId} from '../model/page-id';
-import type {RootState} from '../store/root';
 
 export function changePage(pageId: PageId): CommonAction {
 	return {
@@ -18,15 +17,15 @@ export function changePage(pageId: PageId): CommonAction {
 
 export function changeTheme(theme: Theme): CommonAction {
 	return {
-		theme,
+		theme: theme.toObject(),
 		type: 'COMMON_CHANGE_THEME',
 	};
 }
 
 export function checkForUpdate(): any {
-	return (dispatch: Redux.Dispatch<CommonAction>, getState: () => RootState) => {
+	return (dispatch: Redux.Dispatch<CommonAction>) => {
 		Version.checkForUpdate().then((outdated) => {
-			Version.addOnCompleteUpdateListener((data) => {
+			Version.addOnCompleteUpdateListener((_data) => {
 				dispatch({
 					outdated,
 					type: 'COMMON_UPDATE_OUTDATED',

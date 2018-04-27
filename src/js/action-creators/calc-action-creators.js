@@ -42,7 +42,7 @@ export function toggleMenu(): any {
 }
 
 export function selectMenu(itemId: string): any {
-	return (dispatch: Redux.Dispatch<CalcAction | CommonAction>, getState: () => RootState) => {
+	return (dispatch: Redux.Dispatch<CalcAction | CommonAction>) => {
 		dispatch({
 			expanded: false,
 			type: 'CALC_UPDATE_MENU_EXPANDED',

@@ -1,8 +1,7 @@
 // @flow
 
-import Theme from '../model/theme';
-
 import type {PageId} from '../model/page-id';
+import type {ThemeObject} from '../model/theme';
 
 export type CommonChangePageAction = {
 	pageId: PageId,
@@ -10,7 +9,7 @@ export type CommonChangePageAction = {
 };
 
 export type CommonChangeThemeAction = {
-	theme: Theme,
+	theme: ThemeObject,
 	type: 'COMMON_CHANGE_THEME',
 };
 

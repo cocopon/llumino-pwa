@@ -13,6 +13,7 @@ import {
 	RootStatePersistors,
 } from './store/root';
 
+import type {ThemeObject} from './model/theme';
 import type {RootState} from './store/root';
 
 function applyCss(elementId: string, css: string) {
@@ -29,7 +30,8 @@ function applyCss(elementId: string, css: string) {
 	styleElem.textContent = css;
 }
 
-function applyTheme(theme: Theme, fancy: boolean) {
+function applyTheme(themeObj: ThemeObject, fancy: boolean) {
+	const theme = Theme.fromObject(themeObj);
 	applyCss('baseTheme', theme.generateBaseCss());
 	applyCss('energyTheme', theme.generateEnergyCss(fancy));
 }
@@ -76,10 +78,10 @@ export default {
 		persistor.persist();
 
 		new StoreSubscriber(store, {
-			selector(state: RootState): Theme {
+			selector(state: RootState): ThemeObject {
 				return state.common.theme;
 			},
-			onChange(theme: Theme) {
+			onChange(theme: ThemeObject) {
 				const state = store.getState();
 				applyTheme(theme, state.common.fancy);
 			},
