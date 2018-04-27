@@ -191,7 +191,19 @@ export default class ButtonGrid extends React.Component<Props, State> {
 		const buttonId = (buttonElem.dataset.buttonId: any);
 		const index = BUTTON_IDS.indexOf(buttonId);
 		this.updateButtonActive_(index, false);
-		this.handleButtonClick_(buttonId);
+
+		if (e.changedTouches.length === 0) {
+			return;
+		}
+		const touch = e.changedTouches.item(0);
+
+		const rect = buttonElem.getBoundingClientRect();
+		const tx = touch.clientX - rect.left;
+		const ty = touch.clientY - rect.top;
+		if (tx >= 0 && tx < rect.width &&
+			ty >= 0 && ty < rect.height) {
+			this.handleButtonClick_(buttonId);
+		}
 	}
 
 	updateButtonActive_(index: number, active: boolean) {
