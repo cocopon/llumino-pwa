@@ -34,7 +34,7 @@ class CalcPage extends React.Component<Props> {
 	}
 
 	render() {
-		const pageState = this.props.pageState;
+		const {pageState} = this.props;
 		return (
 			<div className={className()}>
 				<div className={className('innerLayout')}>
@@ -54,8 +54,7 @@ class CalcPage extends React.Component<Props> {
 					</div>
 					<div className={className('gridLayout')}>
 						<ButtonGrid
-							bufferedOperatorId={pageState.calculator.bufferedOperator}
-							inefficientButtonIds={pageState.calculator.inefficientButtons}
+							calculator={pageState.calculator}
 							onButtonClick={this.onGridButtonClick_}
 						/>
 					</div>

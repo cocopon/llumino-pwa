@@ -7,7 +7,6 @@ import * as Redux from 'redux';
 import * as SettingActionCreators from '../../action-creators/setting-action-creators';
 import ClassName from '../../misc/class-name';
 import AppBar from '../common/app-bar';
-import List from '../common/list';
 import * as Tab from '../common/tab-root';
 import AboutPage from './about-page';
 import ThemePage from './theme-page';

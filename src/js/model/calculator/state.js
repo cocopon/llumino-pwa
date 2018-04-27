@@ -19,7 +19,7 @@ export default class State {
 		return [];
 	}
 
-	pushButton(buttonId: ButtonId): State {
+	pushButton(_buttonId: ButtonId): State {
 		throw new Error('not implemented');
 	}
 }

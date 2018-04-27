@@ -5,31 +5,33 @@ import * as ReduxActions from 'redux-actions';
 import FlowUtil from '../misc/flow-util';
 import StatePersistor from '../misc/state-persistor';
 import Calculator from '../model/calculator/calculator';
-import CalculatorPersistor from '../model/calculator/calculator-persistor';
 
 import type {
 	CalcPushButtonAction,
 	CalcShakeDisplayAction,
 	CalcUpdateMenuExpandedAction,
 } from '../actions/calc-actions';
+import type {CalculatorObject} from '../model/calculator/calculator';
 
 export type CalcState = {
-	calculator: Calculator,
+	calculator: CalculatorObject,
 	menuExpanded: boolean,
 	shakeCount: number,
 };
 
 const INITIAL_STATE: CalcState = {
-	calculator: new Calculator(),
+	calculator: Calculator.initialState(),
 	menuExpanded: false,
 	shakeCount: 0,
 };
 
 export const CalcReducer = ReduxActions.handleActions({
 	CALC_PUSH_BUTTON(state, action: CalcPushButtonAction) {
-		state.calculator.pushButton(action.buttonId);
+		const calc = Calculator.fromObject(state.calculator);
+		calc.pushButton(action.buttonId);
+
 		return FlowUtil.updateState(state, {
-			calculator: state.calculator,
+			calculator: calc.toObject(),
 		});
 	},
 
@@ -39,7 +41,7 @@ export const CalcReducer = ReduxActions.handleActions({
 		});
 	},
 
-	CALC_SHAKE_DISPLAY(state, action: CalcShakeDisplayAction) {
+	CALC_SHAKE_DISPLAY(state, _action: CalcShakeDisplayAction) {
 		return FlowUtil.updateState(state, {
 			shakeCount: state.shakeCount + 1,
 		});
@@ -48,14 +50,10 @@ export const CalcReducer = ReduxActions.handleActions({
 
 export const CalcStatePersistor: StatePersistor<CalcState> = new StatePersistor(
 	'calc',
-	(state) => {
-		return {
-			calculator: CalculatorPersistor.persist(state.calculator),
-		};
+	(_state) => {
+		return {};
 	},
-	(obj) => {
-		return {
-			calculator: CalculatorPersistor.hydrate(obj.calculator),
-		};
+	(_obj) => {
+		return {};
 	},
 );

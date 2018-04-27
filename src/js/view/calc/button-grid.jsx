@@ -4,6 +4,7 @@ import React from 'react';
 
 import ClassName from '../../misc/class-name';
 import MathUtil from '../../misc/math-util';
+import Calculator from '../../model/calculator/calculator';
 import ButtonIdUtil from '../../model/button-id';
 import EnergyField from '../../model/energy/field';
 import MoireSource from '../../model/energy/moire-source';
@@ -12,6 +13,7 @@ import type {
 	ButtonId,
 	OperatorButtonId,
 } from '../../model/button-id';
+import type {CalculatorObject} from '../../model/calculator/calculator';
 
 const H_BUTTON_COUNT = 4;
 const BUTTON_IDS: ButtonId[] = [
@@ -31,8 +33,7 @@ const BUTTON_ID_TO_TEXT_MAP: {[ButtonId]: string} = {
 };
 
 type Props = {
-	bufferedOperatorId: ?OperatorButtonId,
-	inefficientButtonIds: ButtonId[],
+	calculator: CalculatorObject,
 	onButtonClick: (buttonId: ButtonId) => void,
 };
 
@@ -87,12 +88,11 @@ export default class ButtonGrid extends React.Component<Props, State> {
 		document.removeEventListener('keyup', this.onDocumentKeyUp_);
 	}
 
-	isInefficientButton_(buttonId: ButtonId): boolean {
-		return this.props.inefficientButtonIds.indexOf(buttonId) >= 0;
-	}
-
 	render() {
+		const calc = Calculator.fromObject(this.props.calculator);
+
 		const buttonElems = BUTTON_IDS.map((buttonId, index) => {
+			const inefficient = (calc.inefficientButtons.indexOf(buttonId) >= 0);
 			const text = BUTTON_ID_TO_TEXT_MAP[buttonId] || buttonId;
 			return (
 				<div
@@ -102,8 +102,8 @@ export default class ButtonGrid extends React.Component<Props, State> {
 					<div className={className('buttonInnerLayout')}>
 						<button
 							className={className('button', {
-								active: (buttonId === this.props.bufferedOperatorId),
-								inefficient: this.isInefficientButton_(buttonId),
+								active: (buttonId === calc.bufferedOperator),
+								inefficient,
 							})}
 							data-button-id={buttonId}
 							data-index={index}
@@ -148,7 +148,9 @@ export default class ButtonGrid extends React.Component<Props, State> {
 			return;
 		}
 
-		if (!this.isInefficientButton_(buttonId)) {
+		const calc = Calculator.fromObject(this.props.calculator);
+		const inefficient = (calc.inefficientButtons.indexOf(buttonId) >= 0);
+		if (!inefficient) {
 			const y = Math.floor(index / H_BUTTON_COUNT);
 			const x = index % H_BUTTON_COUNT;
 			const source = new MoireSource(x, y);

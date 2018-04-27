@@ -2,6 +2,7 @@
 
 import * as Redux from 'redux';
 
+import Calculator from '../model/calculator/calculator';
 import * as CommonActionCreators from './common-action-creators';
 
 import type {CalcAction} from '../actions/calc-actions';
@@ -16,7 +17,7 @@ export function pushButton(buttonId: ButtonId): any {
 			type: 'CALC_UPDATE_MENU_EXPANDED',
 		});
 
-		const calc = getState().calc.calculator;
+		const calc = Calculator.fromObject(getState().calc.calculator);
 		if (calc.inefficientButtons.indexOf(buttonId) < 0) {
 			dispatch({
 				buttonId: buttonId,

@@ -8,9 +8,11 @@ import ClassName from '../../misc/class-name';
 import Calculator from '../../model/calculator/calculator';
 import InnerDisplay from './inner-display';
 
+import type {CalculatorObject} from '../../model/calculator/calculator';
+
 type Props = {
 	dimmed: boolean,
-	calculator: Calculator,
+	calculator: CalculatorObject,
 	onClick: () => void,
 	shakeCount: number,
 };
@@ -72,7 +74,7 @@ export default class Display extends React.Component<Props, State> {
 			this.innerDisplay_ = innerDisplay;
 		}
 
-		const calc = this.props.calculator;
+		const calc = Calculator.fromObject(this.props.calculator);
 		this.innerDisplay_.updateText(buildText(calc));
 
 		// Handle shake
