@@ -59,7 +59,7 @@ const Easing = {
 	},
 
 	inElastic(t: number, b: number, c: number, d: number, opt_s: number): number {
-		var s = (opt_s !== undefined) ? s : 1.70158;
+		var s = (opt_s !== undefined) ? opt_s : 1.70158;
 		var p = d * 0.3;
 		var a = c;
 
@@ -98,7 +98,7 @@ const Easing = {
 
 	inQuint(t: number, b: number, c: number, d: number): number {
 		t /= d;
-		return t * t * t * t * t;
+		return b + c * t * t * t * t * t;
 	},
 
 	inSine(t: number, b: number, c: number, d: number): number {
@@ -137,7 +137,7 @@ const Easing = {
 
 	outCubic(t: number, b: number, c: number, d: number): number {
 		t = t / d - 1;
-		return t * t * t + 1;
+		return b + c * (t * t * t + 1);
 	},
 
 	outElastic(t: number, b: number, c: number, d: number, opt_s: number): number {

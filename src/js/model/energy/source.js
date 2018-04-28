@@ -11,7 +11,7 @@ export default class Source {
 		this.power_ = 1;
 	}
 
-	getEnergy(x: number, y: number): number {
+	getEnergy(_x: number, _y: number): number {
 		return 0;
 	}
 

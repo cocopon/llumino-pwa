@@ -4,11 +4,9 @@ import ButtonIdUtil from '../button-id';
 import CalculatorError from './error';
 import InputOperatorState from './input-operator-state';
 import ShowAnswerState from './show-answer-state';
-import ShowErrorState from './show-error-state';
 import State from './state';
 
 import type {ButtonId, OperatorButtonId} from '../button-id';
-import type {ButtonType} from '../button-type';
 
 export default class InputDigitsState extends State {
 	get displayNumber(): number {

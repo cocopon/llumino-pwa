@@ -11,7 +11,6 @@ import MoireSource from '../../model/energy/moire-source';
 
 import type {
 	ButtonId,
-	OperatorButtonId,
 } from '../../model/button-id';
 import type {CalculatorObject} from '../../model/calculator/calculator';
 

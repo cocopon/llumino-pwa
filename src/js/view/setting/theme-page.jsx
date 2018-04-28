@@ -32,7 +32,7 @@ class ThemePage extends React.Component<Props> {
 	}
 }
 
-function mapStateToProps(state: RootState) {
+function mapStateToProps(_state: RootState) {
 	return {
 		themes: Themes,
 	};

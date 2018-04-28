@@ -7,7 +7,6 @@ import InputOperatorState from './input-operator-state';
 import State from './state';
 
 import type {ButtonId} from '../button-id';
-import type {ButtonType} from '../button-type';
 
 export default class ShowAnswerState extends State {
 	get inefficientButtons(): ButtonId[] {

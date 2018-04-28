@@ -162,7 +162,7 @@ export default class InnerDisplay {
 			return total + this.ddWidthMap_[digit.text];
 		}, 0);
 		let x = displayWidth - totalWidth;
-		nextDigits.forEach((digit, index) => {
+		nextDigits.forEach((digit) => {
 			const w = this.ddWidthMap_[digit.text];
 			digit.left = x;
 			digit.top = 0;

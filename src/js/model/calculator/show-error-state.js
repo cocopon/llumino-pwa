@@ -5,7 +5,6 @@ import ShowAnswerState from './show-answer-state';
 import State from './state';
 
 import type {ButtonId} from '../button-id';
-import type {ButtonType} from '../button-type';
 
 export default class ShowErrorState extends State {
 	get inefficientButtons(): ButtonId[] {

@@ -14,7 +14,6 @@ type Props = {
 	themes: Theme[],
 };
 
-const EMPTY_HANDLER = () => {};
 const ENERGY_COUNT = 5;
 
 export default class ThemeList extends React.Component<Props> {
