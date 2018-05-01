@@ -71,7 +71,12 @@ export default {
 		}, (RootReducer: any));
 		const store = Redux.createStore(
 			(persistedReducer: any),
-			Redux.applyMiddleware(ReduxThunk),
+			(Redux.compose(
+				Redux.applyMiddleware(ReduxThunk),
+				window.__REDUX_DEVTOOLS_EXTENSION__ ?
+					window.__REDUX_DEVTOOLS_EXTENSION__() :
+					(f) => f,
+			): any),
 		);
 
 		const persistor = ReduxPersist.persistStore(store);

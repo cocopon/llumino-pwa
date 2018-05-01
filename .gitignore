@@ -1,6 +1,8 @@
 /public/assets/css/bundle.css
+/public/assets/data/version
 /public/assets/js/bundle.js
 /public/service-worker.js
+/config.json
 
 ### https://raw.github.com/github/gitignore/07c730e1fccfe0f92b29e039ba149d20bfb332e7/Global/macOS.gitignore
 

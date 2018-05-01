@@ -21,6 +21,8 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "bugsnag-js": "^4.6.0",
+    "bugsnag-react": "^1.1.1",
     "color": "^3.0.0",
     "css-loader": "^0.28.11",
     "fs-extra": "^5.0.0",
