@@ -4,12 +4,12 @@ import React from 'react';
 
 import ClassName from '../../misc/class-name';
 
-const className = ClassName('common', 'button');
-
 type Props = {
 	onClick: () => void,
 	title: string,
 };
+
+const className = ClassName('common', 'button');
 
 export default class Button extends React.Component<Props> {
 	render() {

@@ -1,0 +1,9 @@
+$prefix: 'common';
+
+.#{$prefix}-errorPage {
+	padding: 2rem;
+
+	&_buttonLayout {
+		margin-top: 2rem;
+	}
+}

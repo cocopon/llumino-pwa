@@ -2,6 +2,7 @@
 
 import * as Redux from 'redux';
 
+import Version from '../app/version';
 import * as CommonActionCreators from './common-action-creators';
 
 import type {CommonAction} from '../actions/common-actions';
@@ -20,7 +21,7 @@ export function changeTab(itemId: string): SettingAction {
 
 export function forceReload(): any {
 	return (_dispatch: Redux.Dispatch<CommonAction>) => {
-		location.reload(true);
+		Version.forceReload();
 	};
 }
 

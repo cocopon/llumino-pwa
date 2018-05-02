@@ -35,5 +35,19 @@ export default {
 				callback();
 			}
 		});
-	}
+	},
+
+	forceReload() {
+		if (!navigator.serviceWorker) {
+			location.reload(true);
+			return;
+		}
+
+		// Clear caches and then reload
+		navigator.serviceWorker.ready.then((reg) => {
+			return reg.unregister();
+		}).then(() => {
+			location.reload(true);
+		});
+	},
 }

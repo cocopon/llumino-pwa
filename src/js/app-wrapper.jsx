@@ -7,6 +7,7 @@ import * as ReactRedux from 'react-redux';
 
 import Config from '../../config.json';
 import * as CommonActionCreators from './action-creators/common-action-creators';
+import ErrorPage from './view/common/error-page';
 import App from './app';
 import Store from './store';
 
@@ -20,7 +21,9 @@ export default function() {
 	const bugsnag = Bugsnag(Config.bugsnagClientId);
 	const ErrorBoundary = bugsnag.use(BugsnagReact(React));
 	return (
-		<ErrorBoundary>
+		<ErrorBoundary
+			FallbackComponent={ErrorPage}
+		>
 			<ReactRedux.Provider store={store}>
 				<App/>
 			</ReactRedux.Provider>

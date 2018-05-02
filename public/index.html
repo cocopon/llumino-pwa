@@ -22,7 +22,7 @@
 <body>
 	<div id="appContainer"></div>
 	<script>
-		if ('serviceWorker' in navigator) {
+		if (navigator.serviceWorker) {
 			navigator.serviceWorker.register('service-worker.js').then(function(reg) {
 			}).catch(function(err) {
 				console.error('Registration failed:', error);
