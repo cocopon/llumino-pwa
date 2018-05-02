@@ -34,6 +34,17 @@ export default class InputDigitsState extends State {
 			answer <= -Math.pow(10, maxDigits);
 	}
 
+	validateAnswer_(answer: number) {
+		if (isNaN(answer) ||
+			!isFinite(answer)) {
+			throw new CalculatorError('specialAnswer');
+		}
+
+		if (this.isExceededMaxDigits_(answer)) {
+			throw new CalculatorError('exceededMaximumDigits');
+		}
+	}
+
 	operate_() {
 		const calc = this.calc_;
 		const n1 = calc.answer;
@@ -60,10 +71,7 @@ export default class InputDigitsState extends State {
 		}
 
 		const answer = operator(n1, n2);
-		if (this.isExceededMaxDigits_(answer)) {
-			throw new CalculatorError('exceededMaximumDigits');
-		}
-
+		this.validateAnswer_(answer);
 		calc.answer = answer;
 	}
 
@@ -93,9 +101,7 @@ export default class InputDigitsState extends State {
 		}
 
 		const answer = operator(n1, n2);
-		if (this.isExceededMaxDigits_(answer)) {
-			throw new CalculatorError('exceededMaximumDigits');
-		}
+		this.validateAnswer_(answer);
 		calc.answer = answer;
 	}
 

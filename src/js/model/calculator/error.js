@@ -3,12 +3,14 @@
 type ErrorType = 'unknown' |
 	'exceededMaximumDigits' |
 	'invalidOperator' |
-	'notImplemented';
+	'notImplemented' |
+	'specialAnswer';
 
 const TYPE_TO_MESSAGE_MAP: {[ErrorType]: string} = {
 	'exceededMaximumDigits': 'Exceeded maximum digits',
 	'invalidOperator': 'Invalid operator',
 	'notImplemented': 'Not implemented yet',
+	'specialAnswer': 'Answer is special value',
 	'unknown': 'Unexpected error occurred',
 };
 

@@ -333,4 +333,15 @@ describe('Calculator', () => {
 			-36,
 		);
 	});
+
+	it('should throw an error by division by zero', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', '2', '3', '/', '0', '=',
+		]);
+		Assert.strictEqual(
+			(calc.error && calc.error.type) || '',
+			'specialAnswer',
+		);
+	});
 });
