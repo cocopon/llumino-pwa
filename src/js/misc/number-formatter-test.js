@@ -38,4 +38,40 @@ describe('NumberFormatter', () => {
 			'0.3333333333',
 		);
 	});
+
+	it('should format null value', () => {
+		Assert.strictEqual(
+			NumberFormatter.format(null),
+			'0',
+		);
+		Assert.strictEqual(
+			NumberFormatter.format(undefined),
+			'0',
+		);
+	});
+
+	it('should format falsy value', () => {
+		Assert.strictEqual(
+			NumberFormatter.format(0),
+			'0',
+		);
+		Assert.strictEqual(
+			NumberFormatter.format(0.0),
+			'0',
+		);
+		Assert.strictEqual(
+			NumberFormatter.format(-0),
+			'0',
+		);
+	});
+
+	it('should not throw exception for special values', () => {
+		Assert.doesNotThrow(() => {
+			NumberFormatter.format(NaN);
+			NumberFormatter.format(Number.NEGATIVE_INFINITY);
+			NumberFormatter.format(Number.POSITIVE_INFINITY);
+			NumberFormatter.format(Number.MAX_VALUE);
+			NumberFormatter.format(Number.MIN_VALUE);
+		});
+	});
 });

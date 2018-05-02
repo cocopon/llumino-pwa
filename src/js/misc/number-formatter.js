@@ -1,7 +1,11 @@
 // @flow
 
 const NumberFormatter = {
-	format(num: number): string {
+	format(num: ?number): string {
+		if (num === null || num === undefined) {
+			return '0';
+		}
+
 		return num.toLocaleString(undefined, {
 			maximumSignificantDigits: 10,
 		});
