@@ -28,6 +28,34 @@ export default class InputDigitsState extends State {
 		return buttonIds;
 	}
 
+	appendDot_() {
+		const calc = this.calc_;
+
+		if (calc.inputBuffers_.indexOf('.') >= 0) {
+			// Ignore duplicated dots (e.g. 3.14.16)
+			return;
+		}
+
+		if (calc.inputBuffers_.length === 0) {
+			calc.inputBuffers_.push('0');
+		}
+		calc.inputBuffers_.push('.');
+	}
+
+	invertInputBuffers_() {
+		const calc = this.calc_;
+
+		if (calc.inputBuffers_.length === 0) {
+			calc.inputBuffers_.push('0');
+		}
+
+		if (calc.inputBuffers_[0] === '-') {
+			calc.inputBuffers_.shift();
+		} else {
+			calc.inputBuffers_.unshift('-');
+		}
+	}
+
 	isExceededMaxDigits_(answer: number): boolean {
 		const maxDigits = this.calc_.maxInputBufferCount_;
 		return answer >= Math.pow(10, maxDigits) ||
@@ -109,20 +137,10 @@ export default class InputDigitsState extends State {
 		const buttonType = ButtonIdUtil.getType(buttonId);
 		const calc = this.calc_;
 
-		if (buttonType === 'digit') {
-			if (buttonId === '.') {
-				if (calc.inputBuffers_.length === 0) {
-					calc.inputBuffers_.push(
-						'0',
-						buttonId,
-					);
-					return this;
-				}
-				if (calc.inputBuffers_.indexOf('.') >= 0) {
-					// Ignore duplicated dots (e.g. 3.14.16)
-					return this;
-				}
-			}
+		if (buttonId === '.') {
+			this.appendDot_();
+			return this;
+		} else if (buttonType === 'digit') {
 			calc.inputBuffers_.push(buttonId);
 			return this;
 		}
@@ -146,9 +164,8 @@ export default class InputDigitsState extends State {
 		}
 
 		if (buttonType === 'invert') {
-			this.operate_();
-			calc.answer = -calc.answer;
-			return new ShowAnswerState(calc);
+			this.invertInputBuffers_();
+			return this;
 		}
 
 		if (buttonType === 'clear') {

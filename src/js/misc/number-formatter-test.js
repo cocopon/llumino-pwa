@@ -50,17 +50,20 @@ describe('NumberFormatter', () => {
 		);
 	});
 
-	it('should format falsy value', () => {
+	it('should format negative zero', () => {
+		Assert.strictEqual(
+			NumberFormatter.format(-0),
+			'-0',
+		);
+	});
+
+	it('should format other falsy values', () => {
 		Assert.strictEqual(
 			NumberFormatter.format(0),
 			'0',
 		);
 		Assert.strictEqual(
 			NumberFormatter.format(0.0),
-			'0',
-		);
-		Assert.strictEqual(
-			NumberFormatter.format(-0),
 			'0',
 		);
 	});

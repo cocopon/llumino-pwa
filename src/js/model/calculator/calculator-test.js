@@ -315,11 +315,43 @@ describe('Calculator', () => {
 	it('should invert an input', () => {
 		const calc = new Calculator();
 		pushButtons(calc, [
-			'2', '4', 'inv',
+			'2', '4', 'inv', '=',
 		]);
 		Assert.strictEqual(
 			calc.answer,
 			-24,
+		);
+	});
+
+	it('should treat single inversion sign as -0', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', 'inv', 'bs',
+		]);
+		// NOTE:
+		// `-0 === 0` is true so have to check the sign of zero as follows
+		Assert.strictEqual(
+			1 / calc.displayNumber,
+			Number.NEGATIVE_INFINITY,
+		);
+
+		pushButtons(calc, [
+			'+', '4', '=',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			4,
+		);
+	});
+
+	it('should remain sign', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', 'inv', 'bs', '3', '=',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			-3,
 		);
 	});
 
@@ -331,6 +363,39 @@ describe('Calculator', () => {
 		Assert.strictEqual(
 			calc.answer,
 			-36,
+		);
+	});
+
+	it('should invert an input buffer only', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', '+', '4', 'inv', '=',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			-3,
+		);
+	});
+
+	it('should re-invert an input buffer', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', '+', '4', 'inv', 'inv', '=',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			5,
+		);
+	});
+
+	it('should invert an empty input buffer', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'inv', '=',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			0,
 		);
 	});
 

@@ -84,8 +84,13 @@ const ButtonIdUtil = {
 		}
 
 		const text = buttonIds.reduce((text, buttonId) => {
-			return `${text}${buttonId}`;
+			return text + buttonId;
 		}, '');
+
+		if (text === '-') {
+			return -0;
+		}
+
 		return parseFloat(text);
 	},
 };
