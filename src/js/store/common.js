@@ -61,6 +61,8 @@ export const CommonStatePersistor: StatePersistor<CommonState> = new StatePersis
 		return {};
 	},
 	(_obj) => {
-		return {};
+		return {
+			outdated: false,
+		};
 	},
 );

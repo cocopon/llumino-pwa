@@ -35,6 +35,9 @@ $prefix: 'common';
 	right: 0;
 	top: 0;
 
+	&#{&}-initial {
+		visibility: hidden;
+	}
 	&#{&}-show {
 		animation-duration: 0.4s;
 		animation-fill-mode: forwards;

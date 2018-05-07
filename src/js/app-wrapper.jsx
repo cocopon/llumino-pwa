@@ -14,9 +14,12 @@ import Store from './store';
 export default function() {
 	const store = Store.create();
 
-	store.dispatch(
-		CommonActionCreators.checkForUpdate(),
-	);
+	// Check for update after few seconds
+	setTimeout(() => {
+		store.dispatch(
+			CommonActionCreators.checkForUpdate(),
+		);
+	}, 4000);
 
 	const bugsnag = Bugsnag(Config.bugsnagClientId);
 	const ErrorBoundary = bugsnag.use(BugsnagReact(React));

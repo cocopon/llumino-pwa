@@ -6,7 +6,9 @@ import ClassName from '../../misc/class-name';
 
 const className = ClassName('common', 'snackbar');
 
-type Action = 'show' | 'hide';
+type Action = 'hide' |
+	'initial' |
+	'show';
 
 type Props = {
 	buttonTitle?: string,
@@ -16,14 +18,14 @@ type Props = {
 };
 
 type State = {
-	action: ?Action,
+	action: Action,
 };
 
 export default class Snackbar extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 
-		const action = props.visible ? 'show' : null;
+		const action = props.visible ? 'show' : 'initial';
 		this.state = {
 			action,
 		};
