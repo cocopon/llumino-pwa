@@ -20,9 +20,9 @@ const GA = {
 		document.head.appendChild(elem);
 	},
 
-	sendEvent(action: string, value: ?string) {
+	sendEvent(action: string, label: ?string) {
 		gtag('event', action, {
-			value,
+			event_label: label,
 		});
 	}
 };
