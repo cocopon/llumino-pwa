@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/602961/39685990-2c69768e-5201-11e8-9317-4def9a8bee33.png)
+
+
 # Llumino PWA
 Llumino is a luminous calculator that makes calculation more fun.
 
