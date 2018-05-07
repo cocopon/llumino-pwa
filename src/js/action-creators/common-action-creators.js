@@ -3,6 +3,7 @@
 import * as Redux from 'redux';
 
 import Version from '../app/version';
+import GoogleAnalytics from '../misc/google-analytics';
 import Theme from '../model/theme';
 
 import type {CommonAction} from '../actions/common-actions';
@@ -16,6 +17,7 @@ export function changePage(pageId: PageId): CommonAction {
 }
 
 export function changeTheme(theme: Theme): CommonAction {
+	GoogleAnalytics.sendEvent('changeTheme', theme.name);
 	return {
 		theme: theme.toObject(),
 		type: 'COMMON_CHANGE_THEME',

@@ -2,6 +2,8 @@
 
 import ReactDom from 'react-dom';
 
+import Config from '../../config.json';
+import GoogleAnalytics from './misc/google-analytics';
 import AppWrapper from './app-wrapper';
 
 function adjustFontSize() {
@@ -27,6 +29,8 @@ function adjustFontSize() {
 		AppWrapper(),
 		containerElem,
 	);
+
+	GoogleAnalytics.setUp(Config.gaTrackingId);
 
 	window.addEventListener('resize', () => {
 		adjustFontSize();

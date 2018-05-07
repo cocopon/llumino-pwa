@@ -14,6 +14,12 @@ Install required packages:
 $ npm install
 ```
 
+Create a configuration file from template:
+
+```
+$ cp config.example.json config.json
+```
+
 Compile source codes and watch changes:
 
 ```
