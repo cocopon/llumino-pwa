@@ -27,3 +27,7 @@ And run a development server:
 $ cd llumino-pwa
 $ npm run dev-server
 ```
+
+
+## License
+MIT License. See `LICENSE.txt` for more information.
