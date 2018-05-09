@@ -89,10 +89,12 @@ const ROW_TO_ENERGY_TARGETS: (row: number, fancy: boolean) => ThemeTarget[] = (r
 	const targets = [
 		{selector: `${layout} ${button}:active`},
 		{selector: `${layout} ${button}-active`},
+		{selector: `${layout} ${button}-buffered`},
 		{
 			selector: [
 				`${layout} ${button}-inefficient:active`,
 				`${layout} ${button}-inefficient${button}-active`,
+				`${layout} ${button}-inefficient${button}-buffered`,
 			].join(','),
 			value(col: Color): string {
 				return col.alpha(0.2).string();

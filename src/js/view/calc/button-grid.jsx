@@ -101,7 +101,7 @@ export default class ButtonGrid extends React.Component<Props, State> {
 					<div className={className('buttonInnerLayout')}>
 						<button
 							className={className('button', {
-								active: (buttonId === calc.bufferedOperator),
+								buffered: (buttonId === calc.bufferedOperator),
 								inefficient,
 							})}
 							data-button-id={buttonId}
