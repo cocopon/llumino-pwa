@@ -93,6 +93,12 @@ function getIdOfState(state: State): string {
 		return this.state_.displayNumber;
 	}
 
+	get displayText(): string {
+		return this.error ?
+			'Error' :
+			this.state_.displayText;
+	}
+
 	get inefficientButtons(): ButtonId[] {
 		return this.state_.inefficientButtons;
 	}

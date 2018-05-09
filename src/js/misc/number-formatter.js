@@ -1,8 +1,18 @@
 // @flow
 
+const SIGNIFICANT_DIGITS = 10;
+
 const NumberFormatter = {
 	format(num: ?number): string {
 		if (num === null || num === undefined) {
+			return '0';
+		}
+
+		if (num > 0 && num < Math.pow(10, -SIGNIFICANT_DIGITS)) {
+			return '0';
+		}
+
+		if (num < 0 && num > -Math.pow(10, -SIGNIFICANT_DIGITS)) {
 			return '0';
 		}
 
@@ -14,7 +24,7 @@ const NumberFormatter = {
 		}
 
 		return num.toLocaleString(undefined, {
-			maximumSignificantDigits: 10,
+			maximumSignificantDigits: SIGNIFICANT_DIGITS,
 		});
 	},
 };

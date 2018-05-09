@@ -32,6 +32,21 @@ describe('NumberFormatter', () => {
 		);
 	});
 
+	it('should format small value', () => {
+		Assert.strictEqual(
+			NumberFormatter.format(1e-10),
+			'0.0000000001',
+		);
+		Assert.strictEqual(
+			NumberFormatter.format(1e-11),
+			'0',
+		);
+		Assert.strictEqual(
+			NumberFormatter.format(-1e-11),
+			'0',
+		);
+	});
+
 	it('should format circulator', () => {
 		Assert.strictEqual(
 			NumberFormatter.format(1 / 3),

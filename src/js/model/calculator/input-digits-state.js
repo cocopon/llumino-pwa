@@ -13,6 +13,17 @@ export default class InputDigitsState extends State {
 		return ButtonIdUtil.buildNumber(this.calc_.inputBuffers_);
 	}
 
+	get displayText(): string {
+		if (this.displayNumber === 0) {
+			const text = ButtonIdUtil.buildNumberText(this.calc_.inputBuffers_);
+			if (text !== '') {
+				return text;
+			}
+		}
+
+		return super.displayText;
+	}
+
 	get inefficientButtons(): ButtonId[] {
 		const buttonIds: ButtonId[] = [];
 		if (this.calc_.inputBuffers_.length === 0) {

@@ -11,7 +11,6 @@ import type {ButtonId} from '../button-id';
 export default class ShowAnswerState extends State {
 	get inefficientButtons(): ButtonId[] {
 		return [
-			'%',
 			'=',
 			'bs',
 		];
@@ -32,7 +31,7 @@ export default class ShowAnswerState extends State {
 		}
 
 		if (buttonType === 'percent') {
-			// Do nothing
+			calc.answer = calc.answer * 0.01;
 			return this;
 		}
 

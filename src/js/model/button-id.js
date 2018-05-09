@@ -78,14 +78,18 @@ const ButtonIdUtil = {
 			null;
 	},
 
+	buildNumberText(buttonIds: ButtonId[]): string {
+		return buttonIds.reduce((text, buttonId) => {
+			return text + buttonId;
+		}, '');
+	},
+
 	buildNumber(buttonIds: ButtonId[]): number {
 		if (buttonIds.length === 0) {
 			return 0;
 		}
 
-		const text = buttonIds.reduce((text, buttonId) => {
-			return text + buttonId;
-		}, '');
+		const text = ButtonIdUtil.buildNumberText(buttonIds);
 
 		if (text === '-') {
 			return -0;

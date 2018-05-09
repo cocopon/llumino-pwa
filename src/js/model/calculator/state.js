@@ -1,5 +1,6 @@
 // @flow
 
+import NumberFormatter from '../../misc/number-formatter';
 import Calculator from './calculator';
 
 import type {ButtonId} from '../button-id';
@@ -13,6 +14,10 @@ export default class State {
 
 	get displayNumber(): number {
 		return this.calc_.answer;
+	}
+
+	get displayText(): string {
+		return NumberFormatter.format(this.calc_.displayNumber);
 	}
 
 	get inefficientButtons(): ButtonId[] {

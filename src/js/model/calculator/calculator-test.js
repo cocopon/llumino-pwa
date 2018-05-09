@@ -238,6 +238,17 @@ describe('Calculator', () => {
 		);
 	});
 
+	it('should calculate a percentage of answer', () => {
+		const calc = new Calculator();
+		pushButtons(calc, [
+			'1', '0', '9', '=', '%',
+		]);
+		Assert.strictEqual(
+			calc.answer,
+			1.09,
+		);
+	});
+
 	it('should calculate a percentage of input with buffered operator', () => {
 		const calc = new Calculator();
 		pushButtons(calc, [
